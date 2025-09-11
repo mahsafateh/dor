@@ -4,10 +4,10 @@ import { View } from "react-native";
 import { Text } from "react-native-paper";
 import PrimaryButton from "../components/PrimaryButton";
 import Screen from "../components/Screen";
-import { useAppDispatch, useAppSelector } from "../store";
-import { CategoryKey, setCategory } from "../store/slices/gameSlice";
-import { theme } from "../utils/theme";
-import { categories } from "../utils/words";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { CategoryKey, setCategory } from "@/store/slices/gameSlice";
+import { theme } from "@/utils/theme";
+import { categories } from "@/utils/words";
 
 export default function CategoryScreen() {
   const router = useRouter();

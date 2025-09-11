@@ -4,9 +4,9 @@ import { ScrollView, View } from "react-native";
 import { HelperText, Text, TextInput } from "react-native-paper";
 import PrimaryButton from "../components/PrimaryButton";
 import Screen from "../components/Screen";
-import { useAppDispatch, useAppSelector } from "../store";
-import { setPlayers } from "../store/slices/gameSlice";
-import { theme } from "../utils/theme";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { setPlayers } from "@/store/slices/gameSlice";
+import { theme } from "@/utils/theme";
 
 export default function PlayerNamesScreen() {
   const router = useRouter();

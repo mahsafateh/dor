@@ -5,12 +5,12 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 import PrimaryButton from "../components/PrimaryButton";
-import { useAppDispatch, useAppSelector } from "../store";
-import { incrementScore, nextPlayer, nextRound, resetGame, setWord } from "../store/slices/gameSlice";
-import { Sounds } from "../utils/sound";
-import { gradientColors, theme } from "../utils/theme";
-import { useResponsive } from "../utils/useResponsive";
-import { getAllWordsForCategory, getShuffled } from "../utils/words";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { incrementScore, nextPlayer, nextRound, resetGame, setWord } from "@/store/slices/gameSlice";
+import { Sounds } from "@/utils/sound";
+import { gradientColors, theme } from "@/utils/theme";
+import { useResponsive } from "@/utils/useResponsive";
+import { getAllWordsForCategory, getShuffled } from "@/utils/words";
 
 export default function GameScreen() {
   const players = useAppSelector((s) => s.game.players);

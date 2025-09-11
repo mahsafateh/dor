@@ -2,8 +2,8 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { View } from "react-native";
 import { Button, Card, Text } from "react-native-paper";
-import { useGame } from "../context/GameContext";
-import { theme } from "../utils/theme";
+import { useGame } from "@/context/GameContext";
+import { theme } from "@/utils/theme";
 
 export default function ResultsScreen() {
   const router = useRouter();

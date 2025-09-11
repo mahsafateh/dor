@@ -4,9 +4,9 @@ import { View } from "react-native";
 import { HelperText, Text } from "react-native-paper";
 import PrimaryButton from "../components/PrimaryButton";
 import Screen from "../components/Screen";
-import { useAppDispatch, useAppSelector } from "../store";
-import { setPlayerCount } from "../store/slices/gameSlice";
-import { theme } from "../utils/theme";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { setPlayerCount } from "@/store/slices/gameSlice";
+import { theme } from "@/utils/theme";
 
 const options = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
 

@@ -4,7 +4,7 @@ import React from "react";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 import PrimaryButton from "../components/PrimaryButton";
-import { gradientColors, theme } from "../utils/theme";
+import { gradientColors, theme } from "@/utils/theme";
 
 export default function SplashScreen() {
   return (
