@@ -10,10 +10,10 @@ export default function SplashScreen() {
   return (
     <LinearGradient colors={gradientColors.splash} style={{ flex: 1 }}>
       <View className="flex-1 items-center justify-center p-6">
-        <Text variant="displayLarge" style={{ color: theme.colors.primary, fontWeight: "800" }}>
+        <Text variant="displayLarge" style={{ color: theme.colors.primary, fontFamily: "Quicksand-Bold" }}>
           Dor Game
         </Text>
-        <Text variant="titleMedium" className="text-white mt-2">
+        <Text variant="titleMedium" className="text-white mt-2" style={{ fontFamily: "Quicksand-Bold" }}>
           Catch Phrase Fun!
         </Text>
         <Link href="/setup" asChild>

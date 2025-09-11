@@ -1,5 +1,5 @@
 import React from "react";
-import { GestureResponderEvent, Text, TouchableOpacity, ViewStyle } from "react-native";
+import { GestureResponderEvent, Text, TouchableOpacity, ViewStyle, Image, ImageSourcePropType, View } from "react-native";
 
 type Props = {
   title: string;
@@ -9,6 +9,8 @@ type Props = {
   textColor?: string;
   className?: string;
   style?: ViewStyle;
+  leftIconSource?: ImageSourcePropType;
+  leftIconSize?: number;
 };
 
 export default function PrimaryButton({
@@ -19,6 +21,8 @@ export default function PrimaryButton({
   textColor = "#FFFFFF",
   className,
   style,
+  leftIconSource,
+  leftIconSize = 20,
 }: Props) {
   return (
     <TouchableOpacity
@@ -28,7 +32,12 @@ export default function PrimaryButton({
       style={[{ paddingVertical: 12, paddingHorizontal: 16, backgroundColor }, style]}
       onPress={disabled ? undefined : onPress}
     >
-      <Text style={{ color: textColor, fontWeight: "600" }}>{title}</Text>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+        {leftIconSource ? (
+          <Image source={leftIconSource} style={{ width: leftIconSize, height: leftIconSize, borderRadius: 6 }} />
+        ) : null}
+        <Text style={{ color: textColor, fontWeight: "600", fontFamily: "Quicksand-SemiBold" }}>{title}</Text>
+      </View>
     </TouchableOpacity>
   );
 }
