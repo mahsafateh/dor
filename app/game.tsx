@@ -21,6 +21,20 @@ export default function GameScreen() {
   const rounds = useAppSelector((s) => s.game.rounds);
   const dispatch = useAppDispatch();
   const getCurrentTeam = () => (players[currentPlayerIndex]?.team ?? 1);
+
+  const getTeamColor = (teamNumber: number) => {
+    const teamColors = [
+      theme.colors.primary,      // Team 1 - Purple
+      theme.colors.accentOrange, // Team 2 - Orange
+      theme.colors.accentYellow, // Team 3 - Yellow
+      '#E91E63',                 // Team 4 - Pink
+      '#4CAF50',                 // Team 5 - Green
+      '#2196F3',                 // Team 6 - Blue
+      '#FF5722',                 // Team 7 - Deep Orange
+      '#9C27B0',                 // Team 8 - Purple variant
+    ];
+    return teamColors[(teamNumber - 1) % teamColors.length];
+  };
   const [timeLeft, setTimeLeft] = useState<number>(timePerRoundSeconds);
   const [availableWords, setAvailableWords] = useState<string[]>([]);
   const intervalRef = useRef<ReturnType<typeof globalThis.setInterval> | null>(null);
@@ -93,6 +107,11 @@ export default function GameScreen() {
     setCurrentWord(w ?? null);
     dispatch(setWord(w ?? null));
     // next player
+    const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
+    if (nextPlayerIndex === 0) {
+      // Player turn resets back to first player
+      Sounds.tick();
+    }
     dispatch(nextPlayer());
   };
 
@@ -120,7 +139,7 @@ export default function GameScreen() {
             {String(Math.floor(timeLeft / 60)).padStart(2, "0")}:{String(timeLeft % 60).padStart(2, "0")}
           </Text>
 
-          <PlayersCircle players={playersOnCircle} currentIndex={currentPlayerIndex} currentWord={currentWord} />
+          <PlayersCircle players={playersOnCircle} currentIndex={currentPlayerIndex} currentWord={currentWord} getTeamColor={getTeamColor} />
 
           <View className="flex-row justify-around w-full" style={{ gap: 20, marginTop: 20 }}>
             <PrimaryButton title="Pass -5s" onPress={onPass} backgroundColor="#E53935" style={{ flex: 1 }} />
@@ -135,11 +154,13 @@ export default function GameScreen() {
 function PlayersCircle({ 
   players, 
   currentIndex, 
-  currentWord 
+  currentWord,
+  getTeamColor 
 }: { 
-  players: { id: string; name: string; team: 1 | 2 }[]; 
+  players: { id: string; name: string; team: number }[]; 
   currentIndex: number;
   currentWord: string | null;
+  getTeamColor: (teamNumber: number) => string;
 }) {
   const { circleRadius, playerBadge } = useResponsive();
   const radius = circleRadius;
@@ -237,18 +258,16 @@ function PlayersCircle({
                   }) }]
                 }}
               >
-                <View
+                  <View
                   style={{
                     flex: 1,
                     paddingHorizontal: 8,
                     paddingVertical: 4,
                     borderRadius: 12,
                     borderWidth: isCurrent ? 2 : 1,
-                    borderColor: p.team === 1 ? theme.colors.primary : theme.colors.accentOrange,
+                    borderColor: getTeamColor(p.team),
                     backgroundColor: isCurrent 
-                      ? p.team === 1 
-                        ? theme.colors.primary
-                        : theme.colors.accentOrange
+                      ? getTeamColor(p.team)
                       : '#ffffff',
                     alignItems: "center",
                     justifyContent: "center",

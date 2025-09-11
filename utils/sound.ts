@@ -1,24 +1,35 @@
-import { Audio } from "expo-av";
+import { createAudioPlayer } from "expo-audio";
 
 async function playSoundAsync(source: number | string, volume = 1) {
-  const { sound } = await Audio.Sound.createAsync(
-    typeof source === "number" ? source : { uri: source },
-    { shouldPlay: true, volume }
-  );
   try {
-    await sound.playAsync();
-  } finally {
-    // unload after playback
-    sound.unloadAsync();
+    const audioSource = typeof source === "number" ? source : { uri: source };
+    const player = createAudioPlayer(audioSource);
+    
+    // Set volume
+    player.volume = volume;
+    
+    // Play the audio
+    await player.play();
+    
+    // Wait for audio to finish before removing player
+    // This prevents cutting off the sound
+    setTimeout(() => {
+      player.remove();
+    }, 3000); // 3 seconds should be enough for most sound effects
+    
+  } catch (error) {
+    // Gracefully handle audio playback errors
+    // Don't crash the game if sound fails
+    console.warn("Audio playback failed:", error);
   }
 }
 
 export const Sounds = {
-  tick: async () => playSoundAsync("https://assets.mixkit.co/active_storage/sfx/2561/2561-preview.mp3", 0.4),
-  pass: async () => playSoundAsync("https://assets.mixkit.co/active_storage/sfx/2553/2553-preview.mp3", 0.6),
-  success: async () => playSoundAsync("https://assets.mixkit.co/active_storage/sfx/2011/2011-preview.mp3", 0.6),
-  roundEnd: async () => playSoundAsync("https://assets.mixkit.co/active_storage/sfx/2876/2876-preview.mp3", 0.7),
-  winner: async () => playSoundAsync("https://assets.mixkit.co/active_storage/sfx/276/276-preview.mp3", 0.7),
+  tick: async () => playSoundAsync(require("../assets/sounds/tick.mp3"), 0.2),
+  pass: async () => playSoundAsync(require("../assets/sounds/pass-new.mp3"), 0.8),
+  success: async () => playSoundAsync(require("../assets/sounds/pass-option3.mp3"), 0.6),
+  roundEnd: async () => playSoundAsync(require("../assets/sounds/round-end.mp3"), 0.7),
+  winner: async () => playSoundAsync(require("../assets/sounds/winner.mp3"), 0.7),
 };
 
 

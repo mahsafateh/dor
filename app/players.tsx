@@ -19,11 +19,15 @@ export default function PlayerNamesScreen() {
 
   const players = useMemo(
     () =>
-      names.map((name, idx) => ({
-        id: `${idx + 1}`,
-        name,
-        team: ((idx + 1) % 2 === 1 ? 1 : 2) as 1 | 2,
-      })),
+      names.map((name, idx) => {
+        const teamCount = Math.ceil(names.length / 2);
+        const team = (idx % teamCount) + 1; // Cycle through teams
+        return {
+          id: `${idx + 1}`,
+          name,
+          team,
+        };
+      }),
     [names]
   );
 
@@ -34,7 +38,21 @@ export default function PlayerNamesScreen() {
         Enter Player Names
       </Text>
       {names.map((_, idx) => {
-        const team = (idx + 1) % 2 === 1 ? 1 : 2;
+        const teamCount = Math.ceil(names.length / 2);
+        const team = (idx % teamCount) + 1; // Cycle through teams
+        // Cycle through colors for different teams
+        const teamColors = [
+          theme.colors.primary,      // Team 1 - Purple
+          theme.colors.accentOrange, // Team 2 - Orange
+          theme.colors.accentYellow, // Team 3 - Yellow
+          '#E91E63',                 // Team 4 - Pink
+          '#4CAF50',                 // Team 5 - Green
+          '#2196F3',                 // Team 6 - Blue
+          '#FF5722',                 // Team 7 - Deep Orange
+          '#9C27B0',                 // Team 8 - Purple variant
+        ];
+        const teamColor = teamColors[(team - 1) % teamColors.length];
+        
         return (
           <View key={idx} className="my-1.5">
             <TextInput
@@ -42,7 +60,7 @@ export default function PlayerNamesScreen() {
               value={names[idx]}
               onChangeText={(t) => setNames((prev) => prev.map((v, i) => (i === idx ? t : v)))}
               mode="outlined"
-              outlineColor={team === 1 ? theme.colors.primary : theme.colors.accentOrange}
+              outlineColor={teamColor}
             />
           </View>
         );

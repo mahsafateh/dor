@@ -15,7 +15,7 @@ export type CategoryKey =
 export interface Player {
   id: string;
   name: string;
-  team: 1 | 2;
+  team: number;
 }
 
 export interface GameState {
@@ -27,8 +27,8 @@ export interface GameState {
   currentRound: number;
   currentPlayerIndex: number;
   currentWord: string | null;
-  scoreByTeam: { 1: number; 2: number };
-  timeUsedByTeamMs: { 1: number; 2: number };
+  scoreByTeam: Record<number, number>;
+  timeUsedByTeamMs: Record<number, number>;
 }
 
 const initialState: GameState = {
@@ -40,8 +40,8 @@ const initialState: GameState = {
   currentRound: 1,
   currentPlayerIndex: 0,
   currentWord: null,
-  scoreByTeam: { 1: 0, 2: 0 },
-  timeUsedByTeamMs: { 1: 0, 2: 0 },
+  scoreByTeam: {},
+  timeUsedByTeamMs: {},
 };
 
 const gameSlice = createSlice({
@@ -54,6 +54,14 @@ const gameSlice = createSlice({
     setPlayers(state, action: PayloadAction<Player[]>) {
       state.players = action.payload;
       state.currentPlayerIndex = 0;
+      // Initialize team scores and time tracking for all teams
+      const teamCount = Math.ceil(action.payload.length / 2);
+      state.scoreByTeam = {};
+      state.timeUsedByTeamMs = {};
+      for (let i = 1; i <= teamCount; i++) {
+        state.scoreByTeam[i] = 0;
+        state.timeUsedByTeamMs[i] = 0;
+      }
     },
     setRounds(state, action: PayloadAction<number>) {
       state.rounds = action.payload;
@@ -67,11 +75,15 @@ const gameSlice = createSlice({
     setWord(state, action: PayloadAction<string | null>) {
       state.currentWord = action.payload;
     },
-    incrementScore(state, action: PayloadAction<1 | 2>) {
-      state.scoreByTeam[action.payload] += 1;
+    incrementScore(state, action: PayloadAction<number>) {
+      if (state.scoreByTeam[action.payload] !== undefined) {
+        state.scoreByTeam[action.payload] += 1;
+      }
     },
-    addTimeUsed(state, action: PayloadAction<{ team: 1 | 2; ms: number }>) {
-      state.timeUsedByTeamMs[action.payload.team] += action.payload.ms;
+    addTimeUsed(state, action: PayloadAction<{ team: number; ms: number }>) {
+      if (state.timeUsedByTeamMs[action.payload.team] !== undefined) {
+        state.timeUsedByTeamMs[action.payload.team] += action.payload.ms;
+      }
     },
     nextPlayer(state) {
       const len = Math.max(1, state.players.length);
