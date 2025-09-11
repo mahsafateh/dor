@@ -7,6 +7,7 @@ import { theme } from "../utils/theme";
 import "./global.css";
 import { useFonts } from "expo-font";
 import { Text as RNText } from "react-native";
+import { GameProvider } from "../context/GameContext";
 
 export default function RootLayout() {
   const [loaded] = useFonts({
@@ -34,7 +35,9 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <PaperProvider theme={{ ...MD3LightTheme, colors: { ...MD3LightTheme.colors, ...theme.colors }, fonts }}>
         <Provider store={store}>
-          <Stack screenOptions={{ headerShown: false }} />
+          <GameProvider>
+            <Stack screenOptions={{ headerShown: false }} />
+          </GameProvider>
         </Provider>
       </PaperProvider>
     </SafeAreaProvider>

@@ -32,7 +32,7 @@ export interface GameState {
 }
 
 const initialState: GameState = {
-  playerCount: 6,
+  playerCount: 4,
   players: [],
   rounds: 3,
   timePerRoundSeconds: 60,

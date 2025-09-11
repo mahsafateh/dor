@@ -1,31 +1,42 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
 import React from "react";
-import { View } from "react-native";
+import { View, ImageBackground } from "react-native";
 import { Text } from "react-native-paper";
 import PrimaryButton from "../components/PrimaryButton";
 import { gradientColors, theme } from "@/utils/theme";
+import BubblyWord from "../components/BubblyWord";
 
 export default function SplashScreen() {
   return (
-    <LinearGradient colors={gradientColors.splash} style={{ flex: 1 }}>
-      <View className="flex-1 items-center justify-center p-6">
-        <Text variant="displayLarge" style={{ color: theme.colors.primary, fontFamily: "Quicksand-Bold" }}>
-          Dor Game
-        </Text>
-        <Text variant="titleMedium" className="text-white mt-2" style={{ fontFamily: "Quicksand-Bold" }}>
-          Catch Phrase Fun!
-        </Text>
-        <Link href="/setup" asChild>
-          <PrimaryButton
-            title="Start New Game"
-            className="mt-6"
-            backgroundColor={theme.colors.primary}
-            textColor={theme.colors.accentOrange}
-          />
-        </Link>
-      </View>
-    </LinearGradient>
+    <ImageBackground 
+      source={require("../assets/images/bg.jpg")}
+      style={{ flex: 1 }}
+      resizeMode="cover"
+      blurRadius={1}
+    >
+      <LinearGradient 
+        colors={['rgba(106, 13, 173, 0.3)', 'rgba(255, 105, 180, 0.3)']} 
+        style={{ flex: 1 }}
+      >
+        <View className="flex-1 items-center justify-center p-2">
+          <BubblyWord text="DOR" />
+          <BubblyWord text="Catch" />
+          <BubblyWord text="Word" />
+          <Text variant="titleMedium" className="text-white mt-2" style={{ fontFamily: "Quicksand-Bold" }}>
+            Catch Phrase Fun!
+          </Text>
+          <Link href="/setup" asChild>
+            <PrimaryButton
+              title="Start New Game"
+              className="mt-6"
+              backgroundColor={theme.colors.primary}
+              textColor={theme.colors.accentOrange}
+            />
+          </Link>
+        </View>
+      </LinearGradient>
+    </ImageBackground>
   );
 }
 
