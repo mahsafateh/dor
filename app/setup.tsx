@@ -35,7 +35,7 @@ export default function SetupScreen() {
         ))}
       </View>
       <HelperText type={valid ? "info" : "error"} className="text-center mt-2">
-        {valid ? "Choose an even number (2-20)." : "Must be even and ≥ 2."}
+        {valid ? "Choose number of players." : "Must be even and ≥ 2."}
       </HelperText>
       <PrimaryButton
         className="mt-6"
