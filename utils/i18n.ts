@@ -16,20 +16,22 @@ const resources = {
 
 // Initialize i18n configuration
 const initializeI18n = () => {
-  i18n
-    .use(initReactI18next)
-    .init({
-      resources,
-      lng: 'fa', // Default language
-      fallbackLng: 'en',
-      interpolation: {
-        escapeValue: false, // React Native already escapes by default
-      },
-      react: {
-        useSuspense: false, // Disable suspense for React Native
-      },
-      compatibilityJSON: 'v4', // Use version 4 of i18next JSON format
-    });
+  if (!i18n.isInitialized) {
+    i18n
+      .use(initReactI18next)
+      .init({
+        resources,
+        lng: 'fa', // Default language
+        fallbackLng: 'en',
+        interpolation: {
+          escapeValue: false, // React Native already escapes by default
+        },
+        react: {
+          useSuspense: false, // Disable suspense for React Native
+        },
+        compatibilityJSON: 'v4', // Use version 4 of i18next JSON format
+      });
+  }
 
   // Handle RTL layout for Persian
   const handleLanguageChange = (language: string) => {

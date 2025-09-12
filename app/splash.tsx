@@ -3,6 +3,7 @@ import { Link } from "expo-router";
 import React from "react";
 import { View, Text, Animated } from "react-native";
 import { MaterialIcons, Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 import PrimaryButton from "../components/PrimaryButton";
 import { useAppTheme } from "../context/ThemeContext";
 
@@ -40,6 +41,7 @@ const FloatingIcon = ({ children, style, delay = 0 }: { children: React.ReactNod
 };
 
 export default function SplashScreen() {
+  const { t } = useTranslation();
   const theme = useAppTheme();
 
   return (
@@ -80,7 +82,7 @@ export default function SplashScreen() {
           fontFamily: "Quicksand-SemiBold",
           textAlign: 'center'
         }}>
-          Word Whirl
+          {t('splash.gameTitle')}
         </Text>
 
         {/* Main title */}
@@ -93,7 +95,7 @@ export default function SplashScreen() {
           fontFamily: "Quicksand-Bold",
           lineHeight: 42
         }}>
-          Guess the Word-{'\n'}No cheating!
+          {t('splash.mainTitle')}
         </Text>
 
         {/* Subtitle */}
@@ -107,7 +109,7 @@ export default function SplashScreen() {
           lineHeight: 20,
           opacity: 0.9
         }}>
-          A fast-paced word guessing game where{'\n'}creativity and quick thinking win!
+          {t('splash.subtitle')}
         </Text>
 
         {/* Central swirling graphic with icons */}
@@ -179,7 +181,7 @@ export default function SplashScreen() {
         <View className="w-full max-w-sm">
           <Link href="/dashboard" asChild>
             <PrimaryButton
-              title="🎮 Game Dashboard"
+              title={t('splash.gameDashboard')}
               className="mb-4"
               backgroundColor={theme.colors.accentPink}
               textColor={theme.colors.textOnPrimary}
@@ -197,7 +199,7 @@ export default function SplashScreen() {
 
           <Link href="/players" asChild>
             <PrimaryButton
-              title="👥 Play"
+              title={t('splash.play')}
               className="mb-4"
               backgroundColor={theme.colors.info}
               textColor={theme.colors.textOnPrimary}
@@ -213,21 +215,23 @@ export default function SplashScreen() {
             />
           </Link>
 
-          <PrimaryButton
-            title="❓ How to Play!?"
-            className="mb-4"
-            backgroundColor={theme.colors.accentYellow}
-            textColor={theme.colors.primary}
-            style={{ 
-              paddingVertical: 16, 
-              borderRadius: 25,
-              shadowColor: theme.colors.accentYellow,
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.3,
-              shadowRadius: 8,
-              elevation: 8
-            }}
-          />
+          <Link href="/howtoplay" asChild>
+            <PrimaryButton
+              title={t('splash.howToPlay')}
+              className="mb-4"
+              backgroundColor={theme.colors.accentYellow}
+              textColor={theme.colors.primary}
+              style={{ 
+                paddingVertical: 16, 
+                borderRadius: 25,
+                shadowColor: theme.colors.accentYellow,
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.3,
+                shadowRadius: 8,
+                elevation: 8
+              }}
+            />
+          </Link>
         </View>
       </View>
     </LinearGradient>

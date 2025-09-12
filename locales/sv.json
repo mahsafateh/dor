@@ -51,5 +51,60 @@
   "confirm": "Bekräfta",
   "loading": "Laddar...",
   "error": "Fel",
-  "success": "Framgång"
+  "success": "Framgång",
+  
+  "howToPlayTitle": "🎮 Hur Man Spelar Fånga Ord",
+  "howToPlay": {
+    "step1": {
+      "title": "Bilda Lag",
+      "description": "Dela upp er i 2+ lag."
+    },
+    "step2": {
+      "title": "Få ett Ord",
+      "description": "Appen visar ett hemligt ord endast för ledtrådsgivaren."
+    },
+    "step3": {
+      "title": "Ge Ledtrådar",
+      "description": "Beskriv utan att säga ordet eller dess delar.\n• Använd synonymer, tips eller exempel.\n• Ingen stavning, rimning eller gester."
+    },
+    "step4": {
+      "title": "Gissa Snabbt",
+      "description": "Lagkamrater gissar innan tiden tar slut.\n• Tryck ✅ för korrekta svar för att få poäng."
+    },
+    "step5": {
+      "title": "Passa om Ni Kör Fast",
+      "description": "Hoppa över ett ord om det behövs (kan kosta en poäng)."
+    },
+    "step6": {
+      "title": "Byt Tur",
+      "description": "Andra laget får nästa ord."
+    },
+    "step7": {
+      "title": "Vinn Spelet",
+      "description": "Laget med flest poäng när tiden tar slut vinner!"
+    }
+  },
+  "proTips": "💡 Professionella Tips",
+  "proTipsContent": "• Var kreativ med dina ledtrådar!\n• Titta noga på timern\n• Kommunicera tydligt och snabbt\n• Ha kul och ta det inte för allvarligt! 🎉",
+  
+  "splash": {
+    "gameTitle": "Ord Virvel",
+    "mainTitle": "Gissa Ordet-\nInget fusk!",
+    "subtitle": "Ett snabbt ordgissningsspel där\nkreativitet och snabbt tänkande vinner!",
+    "gameDashboard": "🎮 Spel Dashboard",
+    "play": "👥 Spela",
+    "howToPlay": "❓ Hur Man Spelar!?"
+  },
+  
+  "soundSettings": "Ljudinställningar",
+  "masterSound": "Huvudljud",
+  "masterSoundDescription": "Aktivera eller inaktivera alla spellyd",
+  "backgroundMusic": "Bakgrundsmusik",
+  "backgroundMusicDescription": "Spela bakgrundsmusik under spelet",
+  "soundEffects": "Ljudeffekter",
+  "soundEffectsDescription": "Spela ljudeffekter för handlingar och händelser",
+  "otherSettings": "Andra Inställningar",
+  "resetSettings": "Återställ Inställningar",
+  "resetSettingsConfirm": "Är du säker på att du vill återställa alla inställningar till standard?",
+  "resetSettingsDescription": "Återställ alla inställningar till deras standardvärden"
 }

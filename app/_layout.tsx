@@ -8,6 +8,7 @@ import "./global.css";
 import { useFonts } from "expo-font";
 import { Text as RNText, StatusBar } from "react-native";
 import { GameProvider } from "../context/GameContext";
+import "../utils/i18n"; // Initialize i18n
 
 export default function RootLayout() {
   const [loaded] = useFonts({

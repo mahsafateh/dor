@@ -51,5 +51,60 @@
   "confirm": "Confirm",
   "loading": "Loading...",
   "error": "Error",
-  "success": "Success"
+  "success": "Success",
+  
+  "howToPlayTitle": "🎮 How to Play Word Whirl",
+  "howToPlay": {
+    "step1": {
+      "title": "Form Teams",
+      "description": "Split into 2+ teams."
+    },
+    "step2": {
+      "title": "Get a Word",
+      "description": "The app shows a secret word to the clue-giver only."
+    },
+    "step3": {
+      "title": "Give Clues",
+      "description": "Describe without saying the word or its parts.\n• Use synonyms, hints, or examples.\n• No spelling, rhyming, or gestures."
+    },
+    "step4": {
+      "title": "Guess Quickly",
+      "description": "Teammates guess before time runs out.\n• Tap ✅ for correct answers to score points."
+    },
+    "step5": {
+      "title": "Pass if Stuck",
+      "description": "Skip a word if needed (may cost a point)."
+    },
+    "step6": {
+      "title": "Switch Turns",
+      "description": "Other team gets the next word."
+    },
+    "step7": {
+      "title": "Win the Game",
+      "description": "Team with the most points when time ends wins!"
+    }
+  },
+  "proTips": "💡 Pro Tips",
+  "proTipsContent": "• Be creative with your clues!\n• Watch the timer carefully\n• Communicate clearly and quickly\n• Have fun and don't take it too seriously! 🎉",
+  
+  "splash": {
+    "gameTitle": "Word Whirl",
+    "mainTitle": "Guess the Word-\nNo cheating!",
+    "subtitle": "A fast-paced word guessing game where\ncreativity and quick thinking win!",
+    "gameDashboard": "🎮 Game Dashboard",
+    "play": "👥 Play",
+    "howToPlay": "❓ How to Play!?"
+  },
+  
+  "soundSettings": "Sound Settings",
+  "masterSound": "Master Sound",
+  "masterSoundDescription": "Enable or disable all game sounds",
+  "backgroundMusic": "Background Music",
+  "backgroundMusicDescription": "Play background music during the game",
+  "soundEffects": "Sound Effects",
+  "soundEffectsDescription": "Play sound effects for actions and events",
+  "otherSettings": "Other Settings",
+  "resetSettings": "Reset Settings",
+  "resetSettingsConfirm": "Are you sure you want to reset all settings to default?",
+  "resetSettingsDescription": "Reset all settings to their default values"
 }

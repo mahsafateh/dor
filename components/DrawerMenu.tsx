@@ -66,7 +66,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
     { 
       icon: 'settings', 
       label: t('settings'), 
-      route: '/time',
+      route: '/settings',
       color: theme.colors.textTertiary 
     },
   ];
