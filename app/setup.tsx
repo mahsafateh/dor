@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/store";
 import { setPlayerCount } from "@/store/slices/gameSlice";
 import { theme } from "@/utils/theme";
 
-const options = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
+const options = [ 4, 6, 8, 10];
 
 export default function SetupScreen() {
   const router = useRouter();

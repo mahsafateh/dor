@@ -15,18 +15,16 @@ async function playSoundAsync(source: number | string, volume = 1) {
     // This prevents cutting off the sound
     setTimeout(() => {
       player.remove();
-    }, 3000); // 3 seconds should be enough for most sound effects
+    }, 2000); // 3 seconds should be enough for most sound effects
     
   } catch (error) {
-    // Gracefully handle audio playback errors
-    // Don't crash the game if sound fails
     console.warn("Audio playback failed:", error);
   }
 }
 
 export const Sounds = {
   tick: async () => playSoundAsync(require("../assets/sounds/tick.mp3"), 0.2),
-  pass: async () => playSoundAsync(require("../assets/sounds/pass-new.mp3"), 0.8),
+  pass: async () => playSoundAsync(require("../assets/sounds/pass-new.mp3"), 0.5),
   success: async () => playSoundAsync(require("../assets/sounds/pass-option3.mp3"), 0.6),
   roundEnd: async () => playSoundAsync(require("../assets/sounds/round-end.mp3"), 0.7),
   winner: async () => playSoundAsync(require("../assets/sounds/winner.mp3"), 0.7),

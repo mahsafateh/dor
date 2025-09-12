@@ -61,7 +61,7 @@ export default function BubblyWord({ text }: Props) {
               }}
             >
               <LinearGradient
-                colors={['#ffffff', '#f8f8f8', '#e8e8e8']}
+                colors={['#CCB1B8', '#B9A5C2', '#8E95A3']}
                 start={{ x: 0.2, y: 0.2 }}
                 end={{ x: 0.8, y: 0.8 }}
                 style={{
@@ -83,14 +83,14 @@ export default function BubblyWord({ text }: Props) {
                     width: size * 0.3,
                     height: size * 0.15,
                     borderRadius: 9999,
-                    backgroundColor: "rgba(255,255,255,0.6)",
+                    backgroundColor: "rgba(255, 255, 255, 0.61)",
                   }}
                 />
                 <Text style={{ 
                   fontFamily: "Quicksand-Bold", 
                   fontSize: Math.max(16, 22 * randomScale),
                   color: "#2a2a2a",
-                  textShadowColor: "rgba(255,255,255,0.8)",
+                  textShadowColor: "rgba(44, 38, 38, 0.91)",
                   textShadowOffset: { width: 0, height: 1 },
                   textShadowRadius: 1,
                 }}>

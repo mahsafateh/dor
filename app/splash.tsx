@@ -4,7 +4,7 @@ import React from "react";
 import { View, ImageBackground } from "react-native";
 import { Text } from "react-native-paper";
 import PrimaryButton from "../components/PrimaryButton";
-import { gradientColors, theme } from "@/utils/theme";
+import { theme } from "@/utils/theme";
 import BubblyWord from "../components/BubblyWord";
 
 export default function SplashScreen() {
@@ -16,7 +16,7 @@ export default function SplashScreen() {
       blurRadius={1}
     >
       <LinearGradient 
-        colors={['rgba(106, 13, 173, 0.3)', 'rgba(255, 105, 180, 0.3)']} 
+        colors={['rgba(106, 13, 173, 0.18)', 'rgba(255, 105, 180, 0.18)']} 
         style={{ flex: 1 }}
       >
         <View className="flex-1 items-center justify-center p-2">

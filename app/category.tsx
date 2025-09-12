@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import React, { useMemo, useState } from "react";
-import { View, ImageSourcePropType, FlatList } from "react-native";
+import { ImageSourcePropType, FlatList } from "react-native";
 import { Text } from "react-native-paper";
 import PrimaryButton from "../components/PrimaryButton";
 import Screen from "../components/Screen";

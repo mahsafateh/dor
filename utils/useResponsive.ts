@@ -7,7 +7,6 @@ export function useResponsive() {
   const shortEdge = Math.min(width, height);
 
   const circleRadius = useMemo(() => {
-    // Leave margins; scale with screen size
     const base = shortEdge * 0.38;
     return Math.max(110, Math.min(base, 220));
   }, [shortEdge]);
