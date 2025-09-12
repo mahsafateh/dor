@@ -9,14 +9,16 @@ import {
   StatusBar,
   Modal,
   Animated,
+  I18nManager,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import Screen from '../components/Screen';
+import { useTranslation } from 'react-i18next';
 import PrimaryButton from '../components/PrimaryButton';
 import { useAppTheme, gradientColors } from '../utils/theme';
 import { useAppSelector } from '../store';
+import { changeLanguage, getAvailableLanguages } from '../utils/i18n';
 
 // ==================== DASHBOARD COMPONENTS ====================
 
@@ -87,6 +89,7 @@ const TeamRankingCard: React.FC<TeamRankingCardProps> = ({
   rank, 
   onPress 
 }) => {
+  const { t } = useTranslation();
   const theme = useAppTheme();
   
   return (
@@ -131,7 +134,7 @@ const TeamRankingCard: React.FC<TeamRankingCardProps> = ({
             className="text-base font-semibold mt-1"
             style={{ color: color }}
           >
-            {score} points
+            {score} {t('points')}
           </Text>
         </View>
         
@@ -151,52 +154,54 @@ interface DrawerMenuProps {
 }
 
 const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
+  const { t } = useTranslation();
   const theme = useAppTheme();
   const router = useRouter();
-  const [slideAnim] = useState(new Animated.Value(-300));
+  const slideDirection = I18nManager.isRTL ? 300 : -300;
+  const [slideAnim] = useState(new Animated.Value(slideDirection));
   
   useEffect(() => {
     Animated.timing(slideAnim, {
-      toValue: visible ? 0 : -300,
+      toValue: visible ? 0 : slideDirection,
       duration: 300,
       useNativeDriver: true,
     }).start();
-  }, [visible]);
+  }, [visible, slideDirection]);
   
   const menuItems = [
     { 
       icon: 'home' as keyof typeof Ionicons.glyphMap, 
-      label: 'Dashboard', 
+      label: t('dashboard'), 
       route: '/dashboard',
       color: theme.colors.primary 
     },
     { 
       icon: 'people' as keyof typeof Ionicons.glyphMap, 
-      label: 'Teams', 
+      label: t('teams'), 
       route: '/players',
       color: theme.colors.info 
     },
     { 
       icon: 'trophy' as keyof typeof Ionicons.glyphMap, 
-      label: 'Results', 
+      label: t('results'), 
       route: '/results',
       color: theme.colors.warning 
     },
     { 
       icon: 'game-controller' as keyof typeof Ionicons.glyphMap, 
-      label: 'New Game', 
+      label: t('newGame'), 
       route: '/setup',
       color: theme.colors.success 
     },
     { 
       icon: 'bar-chart' as keyof typeof Ionicons.glyphMap, 
-      label: 'Category', 
+      label: t('category'), 
       route: '/category',
       color: theme.colors.interactive 
     },
     { 
       icon: 'settings' as keyof typeof Ionicons.glyphMap, 
-      label: 'Settings', 
+      label: t('settings'), 
       route: '/time',
       color: theme.colors.textTertiary 
     },
@@ -233,7 +238,7 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
               className="text-xl font-semibold"
               style={{ color: theme.colors.textOnPrimary }}
             >
-              Menu
+              {t('menu')}
             </Text>
             <TouchableOpacity onPress={onClose}>
               <Ionicons name="close" size={24} color={theme.colors.textOnPrimary} />
@@ -272,6 +277,7 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
 // ==================== MAIN DASHBOARD SCREEN ====================
 
 export default function DashboardScreen() {
+  const { t, i18n } = useTranslation();
   const theme = useAppTheme();
   const router = useRouter();
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -286,25 +292,25 @@ export default function DashboardScreen() {
   // Generate dashboard stats based on actual game data
   const dashboardStats = [
     { 
-      title: 'Current Round', 
+      title: t('currentRound'), 
       value: `${currentRound}/${rounds}`, 
       icon: 'play-circle' as keyof typeof Ionicons.glyphMap, 
       color: theme.colors.primary 
     },
     { 
-      title: 'Total Players', 
+      title: t('totalPlayers'), 
       value: String(players.length), 
       icon: 'people' as keyof typeof Ionicons.glyphMap, 
       color: theme.colors.info 
     },
     { 
-      title: 'Active Teams', 
+      title: t('activeTeams'), 
       value: String(Object.keys(scoreByTeam).length), 
       icon: 'trophy' as keyof typeof Ionicons.glyphMap, 
       color: theme.colors.success 
     },
     { 
-      title: 'High Score', 
+      title: t('highScore'), 
       value: String(Math.max(...Object.values(scoreByTeam), 0)), 
       icon: 'star' as keyof typeof Ionicons.glyphMap, 
       color: theme.colors.warning 
@@ -318,7 +324,7 @@ export default function DashboardScreen() {
   
   const teamRankings = Object.entries(scoreByTeam)
     .map(([teamNum, score]) => ({
-      teamName: `Team ${teamNum}`,
+      teamName: `${t('team')} ${teamNum}`,
       players: getPlayersByTeam(parseInt(teamNum)).map(p => p.name),
       score: score,
       color: theme.colors.teams[(parseInt(teamNum) - 1) % theme.colors.teams.length],
@@ -362,25 +368,46 @@ export default function DashboardScreen() {
             className="text-2xl font-bold"
             style={{ color: theme.colors.primary }}
           >
-            Game Dashboard
+            {t('dashboardTitle')}
           </Text>
           <Text 
             className="text-sm mt-1"
             style={{ color: theme.colors.textTertiary }}
           >
-            Welcome back! 🎮
+            {t('welcome')}
           </Text>
         </View>
         
-        <View 
-          className="w-8 h-8 rounded-full items-center justify-center"
-          style={{ backgroundColor: theme.colors.primaryAccent }}
-        >
-          <Ionicons 
-            name="game-controller" 
-            size={16} 
-            color={theme.colors.primary} 
-          />
+        <View className="flex-row items-center gap-2">
+          {/* Language Switcher */}
+          <TouchableOpacity 
+            className="w-8 h-8 rounded-full items-center justify-center"
+            style={{ backgroundColor: theme.colors.primaryAccent }}
+            onPress={() => {
+              const currentLang = i18n.language;
+              const nextLang = currentLang === 'en' ? 'fa' : currentLang === 'fa' ? 'sv' : 'en';
+              changeLanguage(nextLang);
+            }}
+          >
+            <Text 
+              className="text-xs font-bold"
+              style={{ color: theme.colors.primary }}
+            >
+              {i18n.language.toUpperCase()}
+            </Text>
+          </TouchableOpacity>
+          
+          {/* Theme Indicator */}
+          <View 
+            className="w-8 h-8 rounded-full items-center justify-center"
+            style={{ backgroundColor: theme.colors.primaryAccent }}
+          >
+            <Ionicons 
+              name="game-controller" 
+              size={16} 
+              color={theme.colors.primary} 
+            />
+          </View>
         </View>
       </View>
       
@@ -394,7 +421,7 @@ export default function DashboardScreen() {
             className="text-lg font-semibold mb-4"
             style={{ color: theme.colors.text }}
           >
-            Game Overview
+            {t('gameOverview')}
           </Text>
           <View className="flex-row flex-wrap -mx-1">
             {dashboardStats.map((stat, index) => (
@@ -415,7 +442,7 @@ export default function DashboardScreen() {
               className="text-lg font-semibold mb-4 px-4"
               style={{ color: theme.colors.text }}
             >
-              Team Rankings
+              {t('teamRankings')}
             </Text>
             {teamRankings.map((team, index) => (
               <TeamRankingCard key={index} {...team} />
@@ -429,12 +456,12 @@ export default function DashboardScreen() {
             className="text-lg font-semibold mb-4"
             style={{ color: theme.colors.text }}
           >
-            Quick Actions
+            {t('quickActions')}
           </Text>
           <View className="flex-row gap-4">
             <View className="flex-1">
               <PrimaryButton
-                title="New Game"
+                title={t('newGame')}
                 onPress={() => router.push('/setup')}
                 backgroundColor={theme.colors.primary}
                 textColor={theme.colors.textOnPrimary}
@@ -443,7 +470,7 @@ export default function DashboardScreen() {
             </View>
             <View className="flex-1">
               <PrimaryButton
-                title="Continue"
+                title={t('continueGame')}
                 onPress={() => router.push('/game')}
                 backgroundColor={theme.colors.info}
                 textColor={theme.colors.textOnPrimary}
@@ -455,7 +482,7 @@ export default function DashboardScreen() {
           <View className="flex-row gap-4 mt-4">
             <View className="flex-1">
               <PrimaryButton
-                title="Teams"
+                title={t('teams')}
                 onPress={() => router.push('/players')}
                 backgroundColor="transparent"
                 textColor={theme.colors.primary}
@@ -468,7 +495,7 @@ export default function DashboardScreen() {
             </View>
             <View className="flex-1">
               <PrimaryButton
-                title="Results"
+                title={t('results')}
                 onPress={() => router.push('/results')}
                 backgroundColor="transparent"
                 textColor={theme.colors.success}
