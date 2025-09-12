@@ -26,12 +26,21 @@ export default function SplashScreen() {
           <Text variant="titleMedium" className="text-white mt-2" style={{ fontFamily: "Quicksand-Bold" }}>
             Catch Phrase Fun!
           </Text>
-          <Link href="/setup" asChild>
+          <Link href="/dashboard" asChild>
             <PrimaryButton
-              title="Start New Game"
+              title="Enter Game Hub"
               className="mt-6"
               backgroundColor={theme.colors.primary}
               textColor={theme.colors.accentOrange}
+            />
+          </Link>
+          <Link href="/setup" asChild>
+            <PrimaryButton
+              title="Quick Start"
+              className="mt-3"
+              backgroundColor="transparent"
+              textColor="#fff"
+              style={{ borderWidth: 1, borderColor: "#ffffff44" }}
             />
           </Link>
         </View>

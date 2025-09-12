@@ -72,7 +72,7 @@ export default function GameScreen() {
             title="Reset"
             onPress={() => {
               dispatch(resetGame());
-              router.replace("/setup");
+              router.replace("/dashboard");
             }}
             backgroundColor="transparent"
             textColor="#fff"

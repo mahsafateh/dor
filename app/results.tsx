@@ -93,9 +93,16 @@ export default function ResultsScreen() {
       
       <PrimaryButton
         className="mt-4"
+        title="Dashboard"
+        onPress={() => router.replace("/dashboard")}
+        backgroundColor={theme.colors.primary}
+        textColor="#fff"
+      />
+      <PrimaryButton
+        className="mt-2"
         title="Play Again"
         onPress={() => router.replace("/setup")}
-        backgroundColor={theme.colors.primary}
+        backgroundColor={theme.colors.success}
         textColor="#fff"
       />
       <PrimaryButton
