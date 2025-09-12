@@ -1,4 +1,5 @@
 import { TextStyle } from 'react-native';
+import * as Font from 'expo-font';
 
 // Font family
 export const fontFamily = {
@@ -191,6 +192,17 @@ export const createFontStyle = (
   fontWeight: weight ? fontWeights[weight] : fontWeights[family],
 });
 
+// Font loading function
+export const loadFonts = async (): Promise<void> => {
+  await Font.loadAsync({
+    'Quicksand-Light': require('../assets/fonts/Quicksand-Light.ttf'),
+    'Quicksand-Regular': require('../assets/fonts/Quicksand-Regular.ttf'),
+    'Quicksand-Medium': require('../assets/fonts/Quicksand-Medium.ttf'),
+    'Quicksand-SemiBold': require('../assets/fonts/Quicksand-SemiBold.ttf'),
+    'Quicksand-Bold': require('../assets/fonts/Quicksand-Bold.ttf'),
+  });
+};
+
 export default {
   fontFamily,
   fontWeights,
@@ -199,4 +211,5 @@ export default {
   typography,
   getFontStyle,
   createFontStyle,
+  loadFonts,
 };
