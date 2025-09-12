@@ -6,11 +6,12 @@ import PrimaryButton from "../components/PrimaryButton";
 import Screen from "../components/Screen";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { setPlayerCount } from "@/store/slices/gameSlice";
-import { theme } from "@/utils/theme";
+import { useAppTheme } from "@/context/ThemeContext";
 
 const options = [ 4, 6, 8, 10];
 
 export default function SetupScreen() {
+  const theme = useAppTheme();
   const router = useRouter();
   const playerCount = useAppSelector((s) => s.game.playerCount);
   const dispatch = useAppDispatch();

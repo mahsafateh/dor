@@ -1,12 +1,12 @@
 import { Stack } from "expo-router";
-import { MD3LightTheme, PaperProvider, configureFonts } from "react-native-paper";
+import { MD3LightTheme, MD3DarkTheme, PaperProvider, configureFonts } from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import { store } from "../store";
-import { theme } from "../utils/theme";
+import { ThemeProvider, useTheme } from "../context/ThemeContext";
 import "./global.css";
 import { useFonts } from "expo-font";
-import { Text as RNText } from "react-native";
+import { Text as RNText, StatusBar } from "react-native";
 import { GameProvider } from "../context/GameContext";
 
 export default function RootLayout() {
@@ -33,13 +33,48 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <PaperProvider theme={{ ...MD3LightTheme, colors: { ...MD3LightTheme.colors, ...theme.colors }, fonts }}>
+      <ThemeProvider>
+        <AppContent fonts={fonts} />
+      </ThemeProvider>
+    </SafeAreaProvider>
+  );
+}
+
+// Separate component that uses the theme context
+const AppContent: React.FC<{ fonts: any }> = ({ fonts }) => {
+  const { theme, isDark } = useTheme();
+
+  const paperTheme = {
+    ...(isDark ? MD3DarkTheme : MD3LightTheme),
+    colors: {
+      ...(isDark ? MD3DarkTheme.colors : MD3LightTheme.colors),
+      // Override with our custom theme colors
+      primary: theme.colors.primary,
+      onPrimary: theme.colors.textOnPrimary,
+      surface: theme.colors.surface,
+      onSurface: theme.colors.text,
+      background: theme.colors.background,
+      onBackground: theme.colors.text,
+      outline: theme.colors.border,
+      surfaceVariant: theme.colors.surfaceVariant,
+      onSurfaceVariant: theme.colors.textTertiary,
+    },
+    fonts,
+  };
+
+  return (
+    <>
+      <StatusBar
+        barStyle={isDark ? 'light-content' : 'dark-content'}
+        backgroundColor={theme.colors.background}
+      />
+      <PaperProvider theme={paperTheme}>
         <Provider store={store}>
           <GameProvider>
             <Stack screenOptions={{ headerShown: false }} />
           </GameProvider>
         </Provider>
       </PaperProvider>
-    </SafeAreaProvider>
+    </>
   );
-}
+};

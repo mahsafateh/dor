@@ -4,6 +4,7 @@ import React from "react";
 import { View, Text, Animated } from "react-native";
 import { MaterialIcons, Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import PrimaryButton from "../components/PrimaryButton";
+import { useAppTheme } from "../context/ThemeContext";
 
 const FloatingIcon = ({ children, style, delay = 0 }: { children: React.ReactNode; style: any; delay?: number }) => {
   const animatedValue = new Animated.Value(0);
@@ -39,31 +40,33 @@ const FloatingIcon = ({ children, style, delay = 0 }: { children: React.ReactNod
 };
 
 export default function SplashScreen() {
+  const theme = useAppTheme();
+
   return (
     <LinearGradient 
-      colors={['#1a0a2e', '#16213e', '#2d1b69', '#6a1b9a']} 
+      colors={[theme.colors.primaryDark, theme.colors.primary, theme.colors.primaryLight]} 
       style={{ flex: 1 }}
     >
       {/* Floating background elements */}
       <View style={{ position: 'absolute', width: '100%', height: '100%' }}>
         {/* Floating geometric shapes */}
         <FloatingIcon style={{ position: 'absolute', top: 100, left: 30 }} delay={0}>
-          <View style={{ width: 8, height: 20, backgroundColor: '#FFD700', borderRadius: 2, transform: [{ rotate: '45deg' }] }} />
+          <View style={{ width: 8, height: 20, backgroundColor: theme.colors.accentYellow, borderRadius: 2, transform: [{ rotate: '45deg' }] }} />
         </FloatingIcon>
         <FloatingIcon style={{ position: 'absolute', top: 150, right: 50 }} delay={500}>
-          <View style={{ width: 12, height: 12, backgroundColor: '#00CED1', borderRadius: 2, transform: [{ rotate: '30deg' }] }} />
+          <View style={{ width: 12, height: 12, backgroundColor: theme.colors.info, borderRadius: 2, transform: [{ rotate: '30deg' }] }} />
         </FloatingIcon>
         <FloatingIcon style={{ position: 'absolute', top: 200, left: 70 }} delay={1000}>
-          <View style={{ width: 6, height: 15, backgroundColor: '#FF69B4', borderRadius: 1, transform: [{ rotate: '-20deg' }] }} />
+          <View style={{ width: 6, height: 15, backgroundColor: theme.colors.accentPink, borderRadius: 1, transform: [{ rotate: '-20deg' }] }} />
         </FloatingIcon>
         <FloatingIcon style={{ position: 'absolute', top: 300, right: 30 }} delay={1500}>
-          <View style={{ width: 10, height: 10, backgroundColor: '#32CD32', borderRadius: 5 }} />
+          <View style={{ width: 10, height: 10, backgroundColor: theme.colors.success, borderRadius: 5 }} />
         </FloatingIcon>
         <FloatingIcon style={{ position: 'absolute', bottom: 400, left: 40 }} delay={2000}>
-          <View style={{ width: 8, height: 18, backgroundColor: '#FF8C00', borderRadius: 2, transform: [{ rotate: '60deg' }] }} />
+          <View style={{ width: 8, height: 18, backgroundColor: theme.colors.accentOrange, borderRadius: 2, transform: [{ rotate: '60deg' }] }} />
         </FloatingIcon>
         <FloatingIcon style={{ position: 'absolute', bottom: 350, right: 60 }} delay={2500}>
-          <View style={{ width: 14, height: 6, backgroundColor: '#9370DB', borderRadius: 3, transform: [{ rotate: '-45deg' }] }} />
+          <View style={{ width: 14, height: 6, backgroundColor: theme.colors.interactive, borderRadius: 3, transform: [{ rotate: '-45deg' }] }} />
         </FloatingIcon>
       </View>
 
@@ -72,7 +75,7 @@ export default function SplashScreen() {
         <Text style={{ 
           fontSize: 24, 
           fontWeight: '600', 
-          color: '#FFFFFF', 
+          color: theme.colors.textOnPrimary, 
           marginBottom: 20,
           fontFamily: "Quicksand-SemiBold",
           textAlign: 'center'
@@ -84,7 +87,7 @@ export default function SplashScreen() {
         <Text style={{ 
           fontSize: 36, 
           fontWeight: 'bold', 
-          color: '#FFFFFF', 
+          color: theme.colors.textOnPrimary, 
           textAlign: 'center',
           marginBottom: 12,
           fontFamily: "Quicksand-Bold",
@@ -96,12 +99,13 @@ export default function SplashScreen() {
         {/* Subtitle */}
         <Text style={{ 
           fontSize: 16, 
-          color: '#E0E0E0', 
+          color: theme.colors.textOnPrimary, 
           textAlign: 'center',
           marginBottom: 40,
           fontFamily: "Quicksand-Regular",
           paddingHorizontal: 20,
-          lineHeight: 20
+          lineHeight: 20,
+          opacity: 0.9
         }}>
           A fast-paced word guessing game where{'\n'}creativity and quick thinking win!
         </Text>
@@ -122,7 +126,7 @@ export default function SplashScreen() {
             height: 180,
             borderRadius: 90,
             borderWidth: 3,
-            borderColor: 'rgba(255, 105, 180, 0.3)',
+            borderColor: theme.colors.accentPink + '40',
             borderStyle: 'dashed'
           }} />
           <View style={{
@@ -131,7 +135,7 @@ export default function SplashScreen() {
             height: 140,
             borderRadius: 70,
             borderWidth: 2,
-            borderColor: 'rgba(106, 13, 173, 0.4)',
+            borderColor: theme.colors.primaryAccent + '60',
             borderStyle: 'dashed'
           }} />
           <View style={{
@@ -140,34 +144,34 @@ export default function SplashScreen() {
             height: 100,
             borderRadius: 50,
             borderWidth: 2,
-            borderColor: 'rgba(255, 215, 0, 0.3)',
+            borderColor: theme.colors.accentYellow + '40',
             borderStyle: 'dashed'
           }} />
 
           {/* Floating icons around the vortex */}
           <FloatingIcon style={{ position: 'absolute', top: -10, left: 50 }}>
-            <Ionicons name="bulb" size={24} color="#FFD700" />
+            <Ionicons name="bulb" size={24} color={theme.colors.accentYellow} />
           </FloatingIcon>
           <FloatingIcon style={{ position: 'absolute', top: 20, right: 10 }} delay={300}>
-            <MaterialIcons name="chat-bubble" size={22} color="#00CED1" />
+            <MaterialIcons name="chat-bubble" size={22} color={theme.colors.info} />
           </FloatingIcon>
           <FloatingIcon style={{ position: 'absolute', right: -5, top: 80 }} delay={600}>
-            <AntDesign name="question" size={20} color="#FF69B4" />
+            <AntDesign name="question" size={20} color={theme.colors.accentPink} />
           </FloatingIcon>
           <FloatingIcon style={{ position: 'absolute', bottom: 20, right: 20 }} delay={900}>
-            <FontAwesome5 name="trophy" size={18} color="#32CD32" />
+            <FontAwesome5 name="trophy" size={18} color={theme.colors.success} />
           </FloatingIcon>
           <FloatingIcon style={{ position: 'absolute', bottom: -5, left: 60 }} delay={1200}>
-            <MaterialIcons name="timer" size={22} color="#FF8C00" />
+            <MaterialIcons name="timer" size={22} color={theme.colors.accentOrange} />
           </FloatingIcon>
           <FloatingIcon style={{ position: 'absolute', left: 10, top: 60 }} delay={1500}>
-            <Ionicons name="chatbubbles" size={20} color="#9370DB" />
+            <Ionicons name="chatbubbles" size={20} color={theme.colors.primaryLight} />
           </FloatingIcon>
           <FloatingIcon style={{ position: 'absolute', left: 80, bottom: 40 }} delay={1800}>
-            <AntDesign name="questioncircle" size={18} color="#FF1493" />
+            <AntDesign name="questioncircle" size={18} color={theme.colors.interactive} />
           </FloatingIcon>
           <FloatingIcon style={{ position: 'absolute', right: 80, bottom: 60 }} delay={2100}>
-            <MaterialIcons name="lightbulb-outline" size={20} color="#FFD700" />
+            <MaterialIcons name="lightbulb-outline" size={20} color={theme.colors.warning} />
           </FloatingIcon>
         </View>
 
@@ -177,12 +181,12 @@ export default function SplashScreen() {
             <PrimaryButton
               title="🎮 Game Dashboard"
               className="mb-4"
-              backgroundColor="#FF69B4"
-              textColor="#FFFFFF"
+              backgroundColor={theme.colors.accentPink}
+              textColor={theme.colors.textOnPrimary}
               style={{ 
                 paddingVertical: 16, 
                 borderRadius: 25,
-                shadowColor: "#FF69B4",
+                shadowColor: theme.colors.accentPink,
                 shadowOffset: { width: 0, height: 4 },
                 shadowOpacity: 0.3,
                 shadowRadius: 8,
@@ -195,12 +199,12 @@ export default function SplashScreen() {
             <PrimaryButton
               title="👥 Play"
               className="mb-4"
-              backgroundColor="#00CED1"
-              textColor="#FFFFFF"
+              backgroundColor={theme.colors.info}
+              textColor={theme.colors.textOnPrimary}
               style={{ 
                 paddingVertical: 16, 
                 borderRadius: 25,
-                shadowColor: "#00CED1",
+                shadowColor: theme.colors.info,
                 shadowOffset: { width: 0, height: 4 },
                 shadowOpacity: 0.3,
                 shadowRadius: 8,
@@ -212,12 +216,12 @@ export default function SplashScreen() {
           <PrimaryButton
             title="❓ How to Play!?"
             className="mb-4"
-            backgroundColor="#FFD700"
-            textColor="#6A1B9A"
+            backgroundColor={theme.colors.accentYellow}
+            textColor={theme.colors.primary}
             style={{ 
               paddingVertical: 16, 
               borderRadius: 25,
-              shadowColor: "#FFD700",
+              shadowColor: theme.colors.accentYellow,
               shadowOffset: { width: 0, height: 4 },
               shadowOpacity: 0.3,
               shadowRadius: 8,

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
-import { useAppTheme } from '../utils/theme';
+import { useAppTheme } from '../context/ThemeContext';
 import { useAppSelector } from '../store';
 import { StatsCardProps } from '../types/dashboard';
 

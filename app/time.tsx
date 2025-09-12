@@ -6,9 +6,10 @@ import PrimaryButton from "../components/PrimaryButton";
 import Screen from "../components/Screen";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { setTime } from "@/store/slices/gameSlice";
-import { theme } from "@/utils/theme";
+import { useAppTheme } from "@/context/ThemeContext";
 
 export default function TimeScreen() {
+  const theme = useAppTheme();
   const router = useRouter();
   const timePerRoundSeconds = useAppSelector((s) => s.game.timePerRoundSeconds);
   const dispatch = useAppDispatch();

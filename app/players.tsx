@@ -6,9 +6,10 @@ import PrimaryButton from "../components/PrimaryButton";
 import Screen from "../components/Screen";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { setPlayers } from "@/store/slices/gameSlice";
-import { theme } from "@/utils/theme";
+import { useAppTheme } from "@/context/ThemeContext";
 
 export default function PlayerNamesScreen() {
+  const theme = useAppTheme();
   const router = useRouter();
   const playerCount = useAppSelector((s) => s.game.playerCount);
   const dispatch = useAppDispatch();
@@ -40,18 +41,8 @@ export default function PlayerNamesScreen() {
       {names.map((_, idx) => {
         const teamCount = Math.ceil(names.length / 2);
         const team = (idx % teamCount) + 1; // Cycle through teams
-        // Cycle through colors for different teams
-        const teamColors = [
-          theme.colors.primary,      // Team 1 - Purple
-          theme.colors.accentOrange, // Team 2 - Orange
-          theme.colors.accentYellow, // Team 3 - Yellow
-          '#E91E63',                 // Team 4 - Pink
-          '#4CAF50',                 // Team 5 - Green
-          '#2196F3',                 // Team 6 - Blue
-          '#FF5722',                 // Team 7 - Deep Orange
-          '#9C27B0',                 // Team 8 - Purple variant
-        ];
-        const teamColor = teamColors[(team - 1) % teamColors.length];
+        // Get team color from theme
+        const teamColor = theme.colors.teams[(team - 1) % theme.colors.teams.length];
         
         return (
           <View key={idx} className="my-1.5">
@@ -61,6 +52,14 @@ export default function PlayerNamesScreen() {
               onChangeText={(t) => setNames((prev) => prev.map((v, i) => (i === idx ? t : v)))}
               mode="outlined"
               outlineColor={teamColor}
+              activeOutlineColor={teamColor}
+              textColor={theme.colors.text}
+              style={{ 
+                backgroundColor: theme.colors.surface,
+              }}
+              contentStyle={{
+                color: theme.colors.text,
+              }}
             />
           </View>
         );

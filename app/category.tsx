@@ -6,7 +6,7 @@ import PrimaryButton from "../components/PrimaryButton";
 import Screen from "../components/Screen";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { CategoryKey, setCategory } from "@/store/slices/gameSlice";
-import { theme } from "@/utils/theme";
+import { useAppTheme } from "@/context/ThemeContext";
 import { categories } from "@/utils/words";
 import CategoryCard from "../components/CategoryCard";
 
@@ -24,6 +24,7 @@ const categoryImages: Record<CategoryKey, ImageSourcePropType> = {
 };
 
 export default function CategoryScreen() {
+  const theme = useAppTheme();
   const router = useRouter();
   const category = useAppSelector((s) => s.game.category);
   const dispatch = useAppDispatch();

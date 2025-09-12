@@ -4,10 +4,11 @@ import { View } from "react-native";
 import { Card, Text } from "react-native-paper";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { resetGame } from "@/store/slices/gameSlice";
-import { theme } from "@/utils/theme";
+import { useAppTheme } from "@/context/ThemeContext";
 import PrimaryButton from "../components/PrimaryButton";
 
 export default function ResultsScreen() {
+  const theme = useAppTheme();
   const router = useRouter();
   const scoreByTeam = useAppSelector((s) => s.game.scoreByTeam);
   const players = useAppSelector((s) => s.game.players);
@@ -20,17 +21,7 @@ export default function ResultsScreen() {
 
   // Get team color function
   const getTeamColor = (teamNumber: number) => {
-    const teamColors = [
-      theme.colors.primary,      // Team 1 - Purple
-      theme.colors.accentOrange, // Team 2 - Orange
-      theme.colors.accentYellow, // Team 3 - Yellow
-      '#E91E63',                 // Team 4 - Pink
-      '#4CAF50',                 // Team 5 - Green
-      '#2196F3',                 // Team 6 - Blue
-      '#FF5722',                 // Team 7 - Deep Orange
-      '#9C27B0',                 // Team 8 - Purple variant
-    ];
-    return teamColors[(teamNumber - 1) % teamColors.length];
+    return theme.colors.teams[(teamNumber - 1) % theme.colors.teams.length];
   };
 
   // Get all teams sorted by score (highest first)

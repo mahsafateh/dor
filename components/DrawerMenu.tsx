@@ -13,7 +13,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { useAppTheme } from '../utils/theme';
+import { useAppTheme } from '../context/ThemeContext';
 import { DrawerMenuProps, MenuItem } from '../types/dashboard';
 
 export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {

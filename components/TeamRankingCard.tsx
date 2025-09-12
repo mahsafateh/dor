@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import { useAppTheme } from '../utils/theme';
+import { useAppTheme } from '../context/ThemeContext';
 import { TeamRankingCardProps } from '../types/dashboard';
 
 export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ 

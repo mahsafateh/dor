@@ -87,7 +87,7 @@ export const darkTheme = {
     primary: "#BA68C8", // Lighter purple for dark backgrounds
     primaryLight: "#CE93D8", // Even lighter purple
     primaryDark: "#8E24AA", // Medium purple
-    primaryAccent: "#4A148C", // Dark purple for subtle elements
+    primaryAccent: "#3D2D47", // Dark purple for subtle elements
     primarySubtle: "#2D1B3D", // Very dark purple
     
     // Enhanced accent colors for dark mode
@@ -95,23 +95,35 @@ export const darkTheme = {
     accentYellow: "#FFE066", // Brighter yellow
     accentPink: "#FF85C1", // Brighter pink
     
-    // Dark backgrounds
+    // Dark backgrounds - Better contrast
     background: "#121212", // Material Design dark background
-    surface: "#1E1E1E", // Dark surface
+    surface: "#1F1F1F", // Dark surface with better contrast
     surfaceVariant: "#2D2D2D", // Medium dark surface
-    surfaceContainer: "#242424", // Container dark background
+    surfaceContainer: "#252525", // Container dark background
     
     // Dark text colors - WCAG AA Compliant
     text: "#FFFFFF", // White text
-    textSecondary: "#E0E0E0", // Light gray text
-    textTertiary: "#B0B0B0", // Medium light gray text
-    textOnPrimary: "#000000", // Black on light purple
+    textSecondary: "#E8E8E8", // Light gray text - better contrast
+    textTertiary: "#B8B8B8", // Medium light gray text - better contrast
+    textOnPrimary: "#FFFFFF", // White on purple (better for dark mode)
     
     // Dark interactive elements
     interactive: "#64B5F6", // Lighter blue for dark mode
     interactivePressed: "#42A5F5", // Pressed state
-    border: "#404040", // Dark border
-    borderVariant: "#606060", // Medium dark border
+    border: "#444444", // Lighter dark border for better visibility
+    borderVariant: "#666666", // Medium dark border with better contrast
+    
+    // Better team colors for dark mode
+    teams: [
+      "#BA68C8", // Lighter Purple for dark mode
+      "#FFB74D", // Brighter Orange
+      "#4DD0E1", // Brighter Teal
+      "#64B5F6", // Brighter Sky Blue
+      "#A5D6A7", // Brighter Mint Green
+      "#FFD54F", // Brighter Golden Yellow
+      "#F8BBD9", // Brighter Pink
+      "#81C784", // Brighter Royal Blue/Green
+    ],
   },
 };
 

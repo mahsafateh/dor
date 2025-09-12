@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useAppTheme } from '../utils/theme';
+import { useAppTheme } from '../context/ThemeContext';
 import { StatsCardProps } from '../types/dashboard';
 
 export const StatsCard: React.FC<StatsCardProps> = ({ 

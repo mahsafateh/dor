@@ -15,9 +15,10 @@ import PrimaryButton from '../components/PrimaryButton';
 import { StatsCard } from '../components/StatsCard';
 import { TeamRankingCard } from '../components/TeamRankingCard';
 import { DrawerMenu } from '../components/DrawerMenu';
-import { useAppTheme } from '../utils/theme';
+import { useAppTheme } from '../context/ThemeContext';
 import { useDashboardData } from '../hooks/useDashboardData';
 import { changeLanguage } from '../utils/i18n';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 // ==================== DASHBOARD HEADER COMPONENT ====================
 
@@ -81,17 +82,8 @@ const DashboardHeader: React.FC<{
           </Text>
         </TouchableOpacity>
         
-        {/* Theme Indicator */}
-        <View 
-          className="w-8 h-8 rounded-full items-center justify-center"
-          style={{ backgroundColor: theme.colors.primaryAccent }}
-        >
-          <Ionicons 
-            name="game-controller" 
-            size={16} 
-            color={theme.colors.primary} 
-          />
-        </View>
+        {/* Theme Toggle */}
+        <ThemeToggle />
       </View>
     </View>
   );

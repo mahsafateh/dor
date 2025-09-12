@@ -10,11 +10,13 @@ import PlayersCircle from "../components/PlayersCircle";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { incrementScore, nextPlayer, resetGame } from "@/store/slices/gameSlice";
 import { Sounds } from "@/utils/sound";
-import { gradientColors, theme } from "@/utils/theme";
+import { gradientColors } from "@/utils/theme";
+import { useAppTheme } from "@/context/ThemeContext";
 import { useGameTimer } from "@/utils/useGameTimer";
 import { useGameWords } from "@/utils/useGameWords";
 
 export default function GameScreen() {
+  const theme = useAppTheme();
   const players = useAppSelector((s) => s.game.players);
   const currentPlayerIndex = useAppSelector((s) => s.game.currentPlayerIndex);
   const currentRound = useAppSelector((s) => s.game.currentRound);
@@ -28,17 +30,7 @@ export default function GameScreen() {
   const getCurrentTeam = () => (players[currentPlayerIndex]?.team ?? 1);
 
   const getTeamColor = (teamNumber: number) => {
-    const teamColors = [
-      theme.colors.primary,      // Team 1 - Purple
-      theme.colors.accentOrange, // Team 2 - Orange
-      theme.colors.accentYellow, // Team 3 - Yellow
-      '#E91E63',                 // Team 4 - Pink
-      '#4CAF50',                 // Team 5 - Green
-      '#2196F3',                 // Team 6 - Blue
-      '#FF5722',                 // Team 7 - Deep Orange
-      '#9C27B0',                 // Team 8 - Purple variant
-    ];
-    return teamColors[(teamNumber - 1) % teamColors.length];
+    return theme.colors.teams[(teamNumber - 1) % theme.colors.teams.length];
   };
 
   const playersOnCircle = useMemo(() => players, [players]);
@@ -65,7 +57,7 @@ export default function GameScreen() {
   };
 
   return (
-    <LinearGradient colors={gradientColors.game} style={{ flex: 1 }}>
+    <LinearGradient colors={[theme.colors.primary, theme.colors.primaryLight]} style={{ flex: 1 }}>
       <View style={{ flex: 1, paddingTop: 48, paddingHorizontal: 16, justifyContent: 'center' }}>
         <View style={{ position: 'absolute', top: 48, right: 16, zIndex: 10 }}>
           <PrimaryButton
@@ -75,8 +67,8 @@ export default function GameScreen() {
               router.replace("/dashboard");
             }}
             backgroundColor="transparent"
-            textColor="#fff"
-            style={{ borderWidth: 1, borderColor: "#ffffff44" }}
+            textColor={theme.colors.textOnPrimary}
+            style={{ borderWidth: 1, borderColor: theme.colors.textOnPrimary + '44' }}
           />
         </View>
         
