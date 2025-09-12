@@ -3,40 +3,52 @@ import { KeyboardAvoidingView, Platform, ViewProps } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAppTheme } from "../context/ThemeContext";
 
-type Props = ViewProps & { center?: boolean };
+type Props = ViewProps & { 
+  center?: boolean;
+  padding?: boolean;
+  keyboardAvoiding?: boolean;
+};
 
-export default function Screen({ children, center, style, ...rest }: Props) {
+export default function Screen({ 
+  children, 
+  center, 
+  padding = true,
+  keyboardAvoiding = true,
+  style, 
+  ...rest 
+}: Props) {
   const theme = useAppTheme();
   
-  return (
+  const content = (
     <SafeAreaView 
       style={[
         { 
           flex: 1, 
-          backgroundColor: theme.colors.background 
+          backgroundColor: theme.colors.background,
+          paddingHorizontal: padding ? 16 : 0,
+          justifyContent: center ? "center" : undefined,
         }, 
         style
       ]} 
       {...rest}
     >
+      {children}
+    </SafeAreaView>
+  );
+
+  if (keyboardAvoiding) {
+    return (
       <KeyboardAvoidingView
         style={{ flex: 1, backgroundColor: theme.colors.background }}
         behavior={Platform.select({ ios: "padding", android: undefined })}
         keyboardVerticalOffset={Platform.OS === "ios" ? 12 : 0}
       >
-        <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
-          <SafeAreaView style={{ 
-            flex: 1, 
-            paddingHorizontal: 16, 
-            justifyContent: center ? "center" : undefined,
-            backgroundColor: theme.colors.background 
-          }}>
-            {children}
-          </SafeAreaView>
-        </SafeAreaView>
+        {content}
       </KeyboardAvoidingView>
-    </SafeAreaView>
-  );
+    );
+  }
+
+  return content;
 }
 
 

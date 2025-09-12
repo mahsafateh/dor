@@ -106,5 +106,8 @@
   "otherSettings": "Andra Inställningar",
   "resetSettings": "Återställ Inställningar",
   "resetSettingsConfirm": "Är du säker på att du vill återställa alla inställningar till standard?",
-  "resetSettingsDescription": "Återställ alla inställningar till deras standardvärden"
+  "resetSettingsDescription": "Återställ alla inställningar till deras standardvärden",
+  
+  "gamePaused": "Spel Pausat",
+  "resumeGame": "Fortsätt Spel"
 }

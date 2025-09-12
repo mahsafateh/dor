@@ -128,7 +128,7 @@ export default function DashboardScreen() {
         testID="dashboard-scroll-view"
       >
         {/* Stats Cards */}
-        <View className="px-4 pt-6">
+        <View className="px-6 pt-6">
           <Text 
             className="text-lg font-semibold mb-4"
             style={{ color: theme.colors.text }}

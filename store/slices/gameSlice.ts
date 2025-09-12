@@ -29,6 +29,8 @@ export interface GameState {
   currentWord: string | null;
   scoreByTeam: Record<number, number>;
   timeUsedByTeamMs: Record<number, number>;
+  isPaused: boolean;
+  pausedTimeLeft: number | null;
 }
 
 const initialState: GameState = {
@@ -42,6 +44,8 @@ const initialState: GameState = {
   currentWord: null,
   scoreByTeam: {},
   timeUsedByTeamMs: {},
+  isPaused: false,
+  pausedTimeLeft: null,
 };
 
 const gameSlice = createSlice({
@@ -96,6 +100,14 @@ const gameSlice = createSlice({
     resetGame() {
       return initialState;
     },
+    pauseGame(state, action: PayloadAction<number>) {
+      state.isPaused = true;
+      state.pausedTimeLeft = action.payload;
+    },
+    resumeGame(state) {
+      state.isPaused = false;
+      state.pausedTimeLeft = null;
+    },
   },
 });
 
@@ -111,6 +123,8 @@ export const {
   nextPlayer,
   nextRound,
   resetGame,
+  pauseGame,
+  resumeGame,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

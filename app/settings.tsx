@@ -6,13 +6,12 @@ import {
   Switch,
   ScrollView,
   Alert,
+  SafeAreaView,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useAppTheme } from '../context/ThemeContext';
-import Screen from '../components/Screen';
 import PrimaryButton from '../components/PrimaryButton';
 import { loadSoundSettings, saveSoundSettings } from '../utils/storage';
 
@@ -110,38 +109,40 @@ export default function SettingsScreen() {
 
   if (loading) {
     return (
-      <Screen>
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
         <View className="flex-1 justify-center items-center">
           <Text style={{ color: theme.colors.text }}>{getTranslation('loading')}</Text>
         </View>
-      </Screen>
+      </SafeAreaView>
     );
   }
 
   return (
-    <Screen>
-      <LinearGradient
-        colors={[theme.colors.primary, theme.colors.primaryLight]}
-        className="pt-16 pb-6 px-6"
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      {/* Header */}
+      <View 
+        className="flex-row items-center justify-between px-6 py-4 border-b"
+        style={{ 
+          backgroundColor: theme.colors.surface,
+          borderBottomColor: theme.colors.border 
+        }}
       >
-        <View className="flex-row items-center justify-between mb-4">
-          <TouchableOpacity
-            onPress={() => router.back()}
-            className="w-10 h-10 rounded-full items-center justify-center"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
-            activeOpacity={0.7}
-          >
-            <Ionicons name="arrow-back" size={24} color={theme.colors.textOnPrimary} />
-          </TouchableOpacity>
-          <Text
-            className="text-2xl font-bold flex-1 text-center"
-            style={{ color: theme.colors.textOnPrimary }}
-          >
-            {getTranslation('settings')}
-          </Text>
-          <View className="w-10" />
-        </View>
-      </LinearGradient>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          className="w-10 h-10 rounded-full items-center justify-center"
+          style={{ backgroundColor: theme.colors.primary + '20' }}
+          activeOpacity={0.7}
+        >
+          <Ionicons name="arrow-back" size={24} color={theme.colors.primary} />
+        </TouchableOpacity>
+        <Text
+          className="text-2xl font-bold flex-1 text-center"
+          style={{ color: theme.colors.text }}
+        >
+          {getTranslation('settings')}
+        </Text>
+        <View className="w-10" />
+      </View>
 
       <ScrollView className="flex-1 px-6 py-4">
         {/* Sound Settings Section */}
@@ -335,9 +336,9 @@ export default function SettingsScreen() {
         <PrimaryButton
           title={getTranslation('back')}
           onPress={() => router.back()}
-          style={{ marginTop: 20 }}
+          style={{ marginTop: 20, marginBottom: 20 }}
         />
       </ScrollView>
-    </Screen>
+    </SafeAreaView>
   );
 }

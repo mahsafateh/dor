@@ -106,5 +106,8 @@
   "otherSettings": "Other Settings",
   "resetSettings": "Reset Settings",
   "resetSettingsConfirm": "Are you sure you want to reset all settings to default?",
-  "resetSettingsDescription": "Reset all settings to their default values"
+  "resetSettingsDescription": "Reset all settings to their default values",
+  
+  "gamePaused": "Game Paused",
+  "resumeGame": "Resume Game"
 }

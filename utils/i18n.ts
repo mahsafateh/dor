@@ -21,7 +21,7 @@ const initializeI18n = () => {
       .use(initReactI18next)
       .init({
         resources,
-        lng: 'fa', // Default language
+        lng: 'en', // Default language
         fallbackLng: 'en',
         interpolation: {
           escapeValue: false, // React Native already escapes by default

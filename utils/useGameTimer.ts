@@ -8,15 +8,39 @@ export function useGameTimer() {
   const timePerRoundSeconds = useAppSelector((s) => s.game.timePerRoundSeconds);
   const currentRound = useAppSelector((s) => s.game.currentRound);
   const rounds = useAppSelector((s) => s.game.rounds);
+  const isPaused = useAppSelector((s) => s.game.isPaused);
+  const pausedTimeLeft = useAppSelector((s) => s.game.pausedTimeLeft);
   const dispatch = useAppDispatch();
   
   const [timeLeft, setTimeLeft] = useState<number>(timePerRoundSeconds);
   const intervalRef = useRef<ReturnType<typeof globalThis.setInterval> | null>(null);
   const lastTickBeep = useRef<number>(timePerRoundSeconds);
 
-  // Start timer
+  // Handle pause/resume
   useEffect(() => {
-    if (!intervalRef.current) {
+    if (isPaused) {
+      // Clear timer when paused
+      if (intervalRef.current) {
+        globalThis.clearInterval(intervalRef.current as unknown as number);
+        intervalRef.current = null;
+      }
+      // Set time to paused time if available
+      if (pausedTimeLeft !== null) {
+        setTimeLeft(pausedTimeLeft);
+      }
+    } else {
+      // Resume timer when not paused
+      if (!intervalRef.current) {
+        intervalRef.current = globalThis.setInterval(() => {
+          setTimeLeft((t) => Math.max(0, t - 1));
+        }, 1000);
+      }
+    }
+  }, [isPaused, pausedTimeLeft]);
+
+  // Start timer initially
+  useEffect(() => {
+    if (!isPaused && !intervalRef.current) {
       intervalRef.current = globalThis.setInterval(() => {
         setTimeLeft((t) => Math.max(0, t - 1));
       }, 1000);
@@ -25,7 +49,7 @@ export function useGameTimer() {
       if (intervalRef.current) globalThis.clearInterval(intervalRef.current as unknown as number);
       intervalRef.current = null;
     };
-  }, []);
+  }, [isPaused]);
 
   // Handle timer events
   useEffect(() => {

@@ -106,5 +106,8 @@
   "otherSettings": "سایر تنظیمات",
   "resetSettings": "بازنشانی تنظیمات",
   "resetSettingsConfirm": "آیا مطمئن هستید که می‌خواهید تمام تنظیمات را به حالت پیش‌فرض بازنشانی کنید؟",
-  "resetSettingsDescription": "بازنشانی تمام تنظیمات به مقادیر پیش‌فرض"
+  "resetSettingsDescription": "بازنشانی تمام تنظیمات به مقادیر پیش‌فرض",
+  
+  "gamePaused": "بازی متوقف شد",
+  "resumeGame": "ادامه بازی"
 }
