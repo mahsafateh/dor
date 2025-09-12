@@ -7,6 +7,7 @@ import {
   ScrollView,
   Dimensions,
   StatusBar,
+  Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -19,6 +20,7 @@ import { useAppTheme } from '../context/ThemeContext';
 import { useDashboardData } from '../hooks/useDashboardData';
 import { changeLanguage } from '../utils/i18n';
 import { ThemeToggle } from '../components/ThemeToggle';
+import { getFontStyle } from '../utils/fonts';
 
 // ==================== DASHBOARD HEADER COMPONENT ====================
 
@@ -40,7 +42,7 @@ const DashboardHeader: React.FC<{
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.05,
         shadowRadius: 2,
-        elevation: 2,
+        elevation: Platform.OS === 'android' ? 2 : 0,
       }}
     >
       <TouchableOpacity 
@@ -53,14 +55,14 @@ const DashboardHeader: React.FC<{
       
       <View className="flex-1 ml-3">
         <Text 
-          className="text-2xl font-bold"
-          style={{ color: theme.colors.primary }}
+          className="mt-1"
+          style={[{ color: theme.colors.primary }, getFontStyle('h3')]}
         >
           {t('dashboardTitle')}
         </Text>
         <Text 
-          className="text-sm mt-1"
-          style={{ color: theme.colors.textTertiary }}
+          className="mt-1"
+          style={[{ color: theme.colors.textTertiary }, getFontStyle('bodySmall')]}
         >
           {t('welcome')}
         </Text>
@@ -111,9 +113,16 @@ export default function DashboardScreen() {
   return (
     <SafeAreaView 
       className="flex-1"
-      style={{ backgroundColor: theme.colors.background }}
+      style={{ 
+        backgroundColor: theme.colors.background,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
+      }}
     >
-      <StatusBar backgroundColor={theme.colors.background} />
+      <StatusBar 
+        backgroundColor={theme.colors.background} 
+        barStyle="dark-content"
+        translucent={Platform.OS === 'android'}
+      />
       
       {/* Header */}
       <DashboardHeader
@@ -130,8 +139,8 @@ export default function DashboardScreen() {
         {/* Stats Cards */}
         <View className="px-6 pt-6">
           <Text 
-            className="text-lg font-semibold mb-4"
-            style={{ color: theme.colors.text }}
+            className="mb-4"
+            style={[{ color: theme.colors.text }, getFontStyle('h5')]}
           >
             {t('gameOverview')}
           </Text>
@@ -151,8 +160,8 @@ export default function DashboardScreen() {
         {hasTeams && (
           <View className="pt-6">
             <Text 
-              className="text-lg font-semibold mb-4 px-4"
-              style={{ color: theme.colors.text }}
+              className="mb-4 px-4"
+              style={[{ color: theme.colors.text }, getFontStyle('h5')]}
             >
               {t('teamRankings')}
             </Text>
@@ -165,8 +174,8 @@ export default function DashboardScreen() {
         {/* Quick Actions */}
         <View className="px-4 pt-6 pb-8">
           <Text 
-            className="text-lg font-semibold mb-4"
-            style={{ color: theme.colors.text }}
+            className="mb-4"
+            style={[{ color: theme.colors.text }, getFontStyle('h5')]}
           >
             {t('quickActions')}
           </Text>

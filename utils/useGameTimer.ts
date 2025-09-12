@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { router } from "expo-router";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { nextRound } from "@/store/slices/gameSlice";
+import { nextRound, timerEnded } from "@/store/slices/gameSlice";
 import { Sounds } from "./sound";
 
 export function useGameTimer() {
@@ -55,22 +55,21 @@ export function useGameTimer() {
   useEffect(() => {
     if (timeLeft === 0) {
       Sounds.roundEnd();
-      // next player, next round logic simplified: go to results if last round
-      if (currentRound >= rounds) {
-        router.replace("/results");
-      } else {
-        dispatch(nextRound());
-        setTimeLeft(timePerRoundSeconds);
-      }
+      // Instead of automatically advancing, pause the game and show round end modal
+      dispatch(timerEnded());
     } else if (timeLeft > 0 && timeLeft % 10 === 0 && timeLeft !== lastTickBeep.current) {
       lastTickBeep.current = timeLeft;
       Sounds.tick();
     }
-  }, [timeLeft, currentRound, rounds, timePerRoundSeconds, dispatch]);
+  }, [timeLeft, dispatch]);
 
   const decreaseTime = (seconds: number) => {
     setTimeLeft((t) => Math.max(0, t - seconds));
   };
 
-  return { timeLeft, decreaseTime };
+  const resetTimer = () => {
+    setTimeLeft(timePerRoundSeconds);
+  };
+
+  return { timeLeft, decreaseTime, resetTimer };
 }

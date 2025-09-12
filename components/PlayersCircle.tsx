@@ -1,9 +1,10 @@
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useRef } from "react";
-import { View, Animated } from "react-native";
+import { View, Animated, Platform } from "react-native";
 import { Text } from "react-native-paper";
 import { theme } from "@/utils/theme";
 import { useResponsive } from "@/utils/useResponsive";
+import { getFontStyle } from "../utils/fonts";
 
 interface PlayersCircleProps {
   players: { id: string; name: string; team: number }[];
@@ -52,7 +53,7 @@ export default function PlayersCircle({
             shadowOpacity: 0.3,
             shadowRadius: 4,
             shadowOffset: { width: 0, height: 2 },
-            elevation: 4,
+            elevation: Platform.OS === 'android' ? 4 : 0,
           }}
         />
         
@@ -77,7 +78,7 @@ export default function PlayersCircle({
               shadowOpacity: 0.2,
               shadowRadius: 8,
               shadowOffset: { width: 0, height: 4 },
-              elevation: 6,
+              elevation: Platform.OS === 'android' ? 6 : 0,
             }}
           />
         </LinearGradient>
@@ -131,15 +132,16 @@ export default function PlayersCircle({
                     shadowOpacity: isCurrent ? 0.4 : 0.1,
                     shadowRadius: isCurrent ? 6 : 2,
                     shadowOffset: { width: 0, height: isCurrent ? 3 : 1 },
-                    elevation: isCurrent ? 6 : 2,
+                    elevation: Platform.OS === 'android' ? (isCurrent ? 6 : 2) : 0,
                   }}
                 >
-                  <Text style={{ 
-                    fontSize: 12, 
-                    fontWeight: isCurrent ? '700' : '500',
-                    fontFamily: 'Quicksand-Bold',
-                    color: isCurrent ? '#ffffff' : '#333'
-                  }}>
+                  <Text style={[
+                    getFontStyle('caption'),
+                    {
+                      fontWeight: isCurrent ? '700' : '500',
+                      color: isCurrent ? '#ffffff' : '#333'
+                    }
+                  ]}>
                     {p.name}
                   </Text>
                 </View>
@@ -164,17 +166,15 @@ export default function PlayersCircle({
             shadowOpacity: 0.3,
             shadowRadius: 8,
             shadowOffset: { width: 0, height: 4 },
-            elevation: 8,
+            elevation: Platform.OS === 'android' ? 8 : 0,
             borderWidth: 2,
             borderColor: '#fff',
           }}
         >
-          <Text style={{ 
-            fontSize: 18, 
-            fontWeight: '700', 
-            color: '#000',
-            fontFamily: 'Quicksand-Bold',
-          }}>
+          <Text style={[
+            getFontStyle('h6'),
+            { color: '#000' }
+          ]}>
             {currentWord ?? "..."}
           </Text>
         </View>

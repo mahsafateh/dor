@@ -9,6 +9,35 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        // English fonts (Quicksand)
+        'light': ['Quicksand-Light'],
+        'regular': ['Quicksand-Regular'],
+        'medium': ['Quicksand-Medium'],
+        'semiBold': ['Quicksand-SemiBold'],
+        'bold': ['Quicksand-Bold'],
+        'sans': ['Quicksand-Regular'],
+        
+      },
+      fontSize: {
+        'xs': ['12px', '16px'],
+        'sm': ['14px', '20px'],
+        'base': ['16px', '24px'],
+        'lg': ['18px', '28px'],
+        'xl': ['20px', '32px'],
+        '2xl': ['24px', '36px'],
+        '3xl': ['30px', '42px'],
+        '4xl': ['36px', '48px'],
+        '5xl': ['48px', '60px'],
+        '6xl': ['60px', '72px'],
+      },
+      fontWeight: {
+        'light': '300',
+        'regular': '400',
+        'medium': '500',
+        'semiBold': '600',
+        'bold': '700',
+      },
       colors: {
         // Primary Purple Palette
         primary: '#6A1B9A',

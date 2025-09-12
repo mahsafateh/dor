@@ -109,5 +109,13 @@
   "resetSettingsDescription": "Återställ alla inställningar till deras standardvärden",
   
   "gamePaused": "Spel Pausat",
-  "resumeGame": "Fortsätt Spel"
+  "resumeGame": "Fortsätt Spel",
+  
+  "roundEnded": "Runda Slut!",
+  "gameEnded": "Spel Slut!",
+  "roundCompleteMessage": "Rundan är klar!",
+  "gameCompleteMessage": "Spelet är klart!",
+  "finalRound": "Sista Runda",
+  "roundXofY": "Runda {currentRound} av {totalRounds}",
+  "continueToNextRound": "Fortsätt till Nästa Runda"
 }

@@ -31,6 +31,8 @@ export interface GameState {
   timeUsedByTeamMs: Record<number, number>;
   isPaused: boolean;
   pausedTimeLeft: number | null;
+  showRoundEndModal: boolean;
+  failedPlayerIndex: number | null; // Player who failed to pass their turn
 }
 
 const initialState: GameState = {
@@ -46,6 +48,8 @@ const initialState: GameState = {
   timeUsedByTeamMs: {},
   isPaused: false,
   pausedTimeLeft: null,
+  showRoundEndModal: false,
+  failedPlayerIndex: null,
 };
 
 const gameSlice = createSlice({
@@ -95,7 +99,14 @@ const gameSlice = createSlice({
     },
     nextRound(state) {
       state.currentRound += 1;
-      state.currentPlayerIndex = 0;
+      // If there's a failed player, they continue their turn in the next round
+      if (state.failedPlayerIndex !== null) {
+        // Keep the same player who failed
+        state.currentPlayerIndex = state.failedPlayerIndex;
+        state.failedPlayerIndex = null; // Reset failed player after applying punishment
+      } else {
+        state.currentPlayerIndex = 0;
+      }
     },
     resetGame() {
       return initialState;
@@ -107,6 +118,22 @@ const gameSlice = createSlice({
     resumeGame(state) {
       state.isPaused = false;
       state.pausedTimeLeft = null;
+    },
+    showRoundEndModal(state) {
+      state.showRoundEndModal = true;
+      state.isPaused = true;
+    },
+    hideRoundEndModal(state) {
+      state.showRoundEndModal = false;
+    },
+    setFailedPlayer(state, action: PayloadAction<number>) {
+      state.failedPlayerIndex = action.payload;
+    },
+    timerEnded(state) {
+      // Mark the current player as failed and show round end modal
+      state.failedPlayerIndex = state.currentPlayerIndex;
+      state.showRoundEndModal = true;
+      state.isPaused = true;
     },
   },
 });
@@ -125,6 +152,10 @@ export const {
   resetGame,
   pauseGame,
   resumeGame,
+  showRoundEndModal,
+  hideRoundEndModal,
+  setFailedPlayer,
+  timerEnded,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

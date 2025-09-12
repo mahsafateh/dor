@@ -1,5 +1,6 @@
 import React from "react";
 import { GestureResponderEvent, Text, TouchableOpacity, ViewStyle, Image, ImageSourcePropType, View } from "react-native";
+import { getFontStyle } from "../utils/fonts";
 
 type Props = {
   title: string;
@@ -36,7 +37,7 @@ export default function PrimaryButton({
         {leftIconSource ? (
           <Image source={leftIconSource} style={{ width: leftIconSize, height: leftIconSize, borderRadius: 6 }} />
         ) : null}
-        <Text style={{ color: textColor, fontWeight: "600", fontFamily: "Quicksand-SemiBold" }}>{title}</Text>
+        <Text style={[{ color: textColor }, getFontStyle('button')]}>{title}</Text>
       </View>
     </TouchableOpacity>
   );

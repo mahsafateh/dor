@@ -109,5 +109,13 @@
   "resetSettingsDescription": "بازنشانی تمام تنظیمات به مقادیر پیش‌فرض",
   
   "gamePaused": "بازی متوقف شد",
-  "resumeGame": "ادامه بازی"
+  "resumeGame": "ادامه بازی",
+  
+  "roundEnded": "دور تمام شد!",
+  "gameEnded": "بازی تمام شد!",
+  "roundCompleteMessage": "دور تمام شد!",
+  "gameCompleteMessage": "بازی تمام شد!",
+  "finalRound": "دور نهایی",
+  "roundXofY": "دور {currentRound} از {totalRounds}",
+  "continueToNextRound": "ادامه به دور بعدی"
 }

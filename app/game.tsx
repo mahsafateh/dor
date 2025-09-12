@@ -2,15 +2,16 @@ import * as Haptics from "expo-haptics";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import React, { useMemo, useState } from "react";
-import { View } from "react-native";
+import { View, Platform, StatusBar } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import PrimaryButton from "../components/PrimaryButton";
 import GameHeader from "../components/GameHeader";
 import GameActions from "../components/GameActions";
 import PlayersCircle from "../components/PlayersCircle";
 import PauseModal from "../components/PauseModal";
+import RoundEndModal from "../components/RoundEndModal";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { incrementScore, nextPlayer, resetGame, pauseGame, resumeGame } from "@/store/slices/gameSlice";
+import { incrementScore, nextPlayer, resetGame, pauseGame, resumeGame, nextRound, hideRoundEndModal } from "@/store/slices/gameSlice";
 import { Sounds } from "@/utils/sound";
 import { gradientColors } from "@/utils/theme";
 import { useAppTheme } from "@/context/ThemeContext";
@@ -24,11 +25,12 @@ export default function GameScreen() {
   const currentRound = useAppSelector((s) => s.game.currentRound);
   const rounds = useAppSelector((s) => s.game.rounds);
   const isPaused = useAppSelector((s) => s.game.isPaused);
+  const showRoundEndModal = useAppSelector((s) => s.game.showRoundEndModal);
   const dispatch = useAppDispatch();
   const [showPauseModal, setShowPauseModal] = useState(false);
   
   // Custom hooks for game logic
-  const { timeLeft, decreaseTime } = useGameTimer();
+  const { timeLeft, decreaseTime, resetTimer } = useGameTimer();
   const { currentWord, getNextWord } = useGameWords();
 
   const getCurrentTeam = () => (players[currentPlayerIndex]?.team ?? 1);
@@ -74,9 +76,33 @@ export default function GameScreen() {
     setShowPauseModal(false);
   };
 
+  const handleRoundEndContinue = () => {
+    dispatch(hideRoundEndModal());
+    
+    // Check if this is the last round
+    if (currentRound >= rounds) {
+      // Go to results screen
+      router.replace("/results");
+    } else {
+      // Move to next round
+      dispatch(nextRound());
+      resetTimer(); // Reset timer for the new round
+    }
+  };
+
   return (
     <LinearGradient colors={[theme.colors.primary, theme.colors.primaryLight]} style={{ flex: 1 }}>
-      <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar 
+        barStyle="light-content" 
+        backgroundColor="transparent" 
+        translucent={Platform.OS === 'android'} 
+      />
+      <SafeAreaView 
+        style={{ 
+          flex: 1,
+          paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
+        }}
+      >
         {/* Header with buttons */}
         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', paddingHorizontal: 16, paddingVertical: 12 }}>
           <PrimaryButton
@@ -123,6 +149,14 @@ export default function GameScreen() {
         visible={showPauseModal}
         onClose={handleClosePauseModal}
         onResume={handleResume}
+      />
+      
+      {/* Round End Modal */}
+      <RoundEndModal
+        visible={showRoundEndModal}
+        currentRound={currentRound}
+        totalRounds={rounds}
+        onContinue={handleRoundEndContinue}
       />
     </LinearGradient>
   );

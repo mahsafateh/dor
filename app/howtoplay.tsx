@@ -6,11 +6,14 @@ import {
   TouchableOpacity,
   ImageBackground,
   SafeAreaView,
+  StatusBar,
+  Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useAppTheme } from '../context/ThemeContext';
+import { getFontStyle } from '../utils/fonts';
 const HowToPlayScreen: React.FC = () => {
   const { t } = useTranslation();
   const theme = useAppTheme();
@@ -71,7 +74,17 @@ const HowToPlayScreen: React.FC = () => {
       style={{ flex: 1 }}
       resizeMode="cover"
     >
-      <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar 
+        barStyle="light-content" 
+        backgroundColor="transparent" 
+        translucent={Platform.OS === 'android'} 
+      />
+      <SafeAreaView 
+        style={{ 
+          flex: 1,
+          paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
+        }}
+      >
           {/* Header */}
           <View 
             style={{
@@ -99,14 +112,15 @@ const HowToPlayScreen: React.FC = () => {
             </TouchableOpacity>
             
             <Text
-              style={{
-                fontSize: 24,
-                fontWeight: 'bold',
-                color: '#FFFFFF',
-                textAlign: 'center',
-                flex: 1,
-                marginLeft: 16,
-              }}
+              style={[
+                getFontStyle('h3'),
+                {
+                  color: '#FFFFFF',
+                  textAlign: 'center',
+                  flex: 1,
+                  marginLeft: 16,
+                }
+              ]}
             >
               {t('howToPlayTitle')}
             </Text>
@@ -135,7 +149,7 @@ const HowToPlayScreen: React.FC = () => {
                   shadowOffset: { width: 0, height: 4 },
                   shadowOpacity: 0.15,
                   shadowRadius: 12,
-                  elevation: 8,
+                  elevation: Platform.OS === 'android' ? 8 : 0,
                 }}
               >
                 <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 8 }}>
@@ -170,23 +184,25 @@ const HowToPlayScreen: React.FC = () => {
                         style={{ marginRight: 8 }}
                       />
                       <Text
-                        style={{
-                          fontSize: 20,
-                          fontWeight: '600',
-                          color: theme.colors.text,
-                          flex: 1,
-                        }}
+                        style={[
+                          getFontStyle('h6'),
+                          {
+                            color: theme.colors.text,
+                            flex: 1,
+                          }
+                        ]}
                       >
                         {rule.title}
                       </Text>
                     </View>
                     
                     <Text
-                      style={{
-                        fontSize: 16,
-                        color: theme.colors.textSecondary,
-                        lineHeight: 24,
-                      }}
+                      style={[
+                        getFontStyle('body'),
+                        {
+                          color: theme.colors.textSecondary,
+                        }
+                      ]}
                     >
                       {rule.description}
                     </Text>
@@ -206,29 +222,31 @@ const HowToPlayScreen: React.FC = () => {
                 shadowOffset: { width: 0, height: 4 },
                 shadowOpacity: 0.15,
                 shadowRadius: 12,
-                elevation: 8,
+                elevation: Platform.OS === 'android' ? 8 : 0,
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
                 <Ionicons name="bulb" size={24} color={theme.colors.accentYellow || theme.colors.warning} />
                 <Text
-                  style={{
-                    fontSize: 20,
-                    fontWeight: '600',
-                    color: theme.colors.text,
-                    marginLeft: 12,
-                  }}
+                  style={[
+                    getFontStyle('h6'),
+                    {
+                      color: theme.colors.text,
+                      marginLeft: 12,
+                    }
+                  ]}
                 >
                   {t('proTips')}
                 </Text>
               </View>
               
               <Text
-                style={{
-                  fontSize: 16,
-                  color: theme.colors.textSecondary,
-                  lineHeight: 24,
-                }}
+                style={[
+                  getFontStyle('body'),
+                  {
+                    color: theme.colors.textSecondary,
+                  }
+                ]}
               >
                 {t('proTipsContent')}
               </Text>

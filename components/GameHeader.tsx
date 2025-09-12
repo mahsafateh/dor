@@ -2,6 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 import { theme } from "@/utils/theme";
+import { getFontStyle } from "../utils/fonts";
 
 interface GameHeaderProps {
   currentRound: number;
@@ -18,10 +19,10 @@ export default function GameHeader({ currentRound, totalRounds, timeLeft }: Game
 
   return (
     <View style={{ alignItems: 'center', gap: 16 }}>
-      <Text variant="titleLarge" className="text-center text-white" style={{ fontFamily: 'Quicksand-Bold' }}>
+      <Text variant="titleLarge" className="text-center text-white" style={getFontStyle('h4')}>
         Round {currentRound} / {totalRounds}
       </Text>
-      <Text variant="displaySmall" className="text-center" style={{ color: theme.colors.accentYellow, fontFamily: 'Quicksand-Bold' }}>
+      <Text variant="displaySmall" className="text-center" style={[{ color: theme.colors.accentYellow }, getFontStyle('h1')]}>
         {formatTime(timeLeft)}
       </Text>
     </View>

@@ -6,6 +6,7 @@ import { MaterialIcons, Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-i
 import { useTranslation } from "react-i18next";
 import PrimaryButton from "../components/PrimaryButton";
 import { useAppTheme } from "../context/ThemeContext";
+import { getFontStyle } from "../utils/fonts";
 
 const FloatingIcon = ({ children, style, delay = 0 }: { children: React.ReactNode; style: any; delay?: number }) => {
   const animatedValue = new Animated.Value(0);
@@ -74,41 +75,40 @@ export default function SplashScreen() {
 
       <View className="flex-1 items-center justify-center px-6">
         {/* Header title */}
-        <Text style={{ 
-          fontSize: 24, 
-          fontWeight: '600', 
-          color: theme.colors.textOnPrimary, 
-          marginBottom: 20,
-          fontFamily: "Quicksand-SemiBold",
-          textAlign: 'center'
-        }}>
+        <Text style={[
+          getFontStyle('h4'),
+          { 
+            color: theme.colors.textOnPrimary, 
+            marginBottom: 20,
+            textAlign: 'center'
+          }
+        ]}>
           {t('splash.gameTitle')}
         </Text>
 
         {/* Main title */}
-        <Text style={{ 
-          fontSize: 36, 
-          fontWeight: 'bold', 
-          color: theme.colors.textOnPrimary, 
-          textAlign: 'center',
-          marginBottom: 12,
-          fontFamily: "Quicksand-Bold",
-          lineHeight: 42
-        }}>
+        <Text style={[
+          getFontStyle('h1'),
+          { 
+            color: theme.colors.textOnPrimary, 
+            textAlign: 'center',
+            marginBottom: 12,
+          }
+        ]}>
           {t('splash.mainTitle')}
         </Text>
 
         {/* Subtitle */}
-        <Text style={{ 
-          fontSize: 16, 
-          color: theme.colors.textOnPrimary, 
-          textAlign: 'center',
-          marginBottom: 40,
-          fontFamily: "Quicksand-Regular",
-          paddingHorizontal: 20,
-          lineHeight: 20,
-          opacity: 0.9
-        }}>
+        <Text style={[
+          getFontStyle('body'),
+          { 
+            color: theme.colors.textOnPrimary, 
+            textAlign: 'center',
+            marginBottom: 40,
+            paddingHorizontal: 20,
+            opacity: 0.9
+          }
+        ]}>
           {t('splash.subtitle')}
         </Text>
 

@@ -1,4 +1,5 @@
 import { useColorScheme, TextStyle } from 'react-native';
+import { typography } from './fonts';
 
 // Enhanced theme system with WCAG AA compliance and graceful team colors
 export const lightTheme = {
@@ -70,11 +71,7 @@ export const lightTheme = {
     xl: 16,
   },
   typography: {
-    h1: { fontSize: 32, fontWeight: '700' as TextStyle['fontWeight'], lineHeight: 40 },
-    h2: { fontSize: 24, fontWeight: '600' as TextStyle['fontWeight'], lineHeight: 32 },
-    h3: { fontSize: 18, fontWeight: '600' as TextStyle['fontWeight'], lineHeight: 24 },
-    body: { fontSize: 16, fontWeight: '400' as TextStyle['fontWeight'], lineHeight: 24 },
-    caption: { fontSize: 14, fontWeight: '400' as TextStyle['fontWeight'], lineHeight: 20 },
+    ...typography,
   },
 };
 

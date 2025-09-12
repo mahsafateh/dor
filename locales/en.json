@@ -109,5 +109,13 @@
   "resetSettingsDescription": "Reset all settings to their default values",
   
   "gamePaused": "Game Paused",
-  "resumeGame": "Resume Game"
+  "resumeGame": "Resume Game",
+  
+  "roundEnded": "Round Ended!",
+  "gameEnded": "Game Ended!",
+  "roundCompleteMessage": "Round is complete!",
+  "gameCompleteMessage": "The game is complete!",
+  "finalRound": "Final Round",
+  "roundXofY": "Round {currentRound} of {totalRounds}",
+  "continueToNextRound": "Continue to Next Round"
 }
