@@ -35,6 +35,7 @@ jest.mock('expo-router', () => ({
   useRouter: () => ({
     push: jest.fn(),
   }),
+  usePathname: () => '/dashboard',
 }));
 
 describe('Dashboard Components', () => {

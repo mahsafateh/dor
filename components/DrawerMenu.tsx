@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { useRouter, usePathname } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useAppTheme } from '../context/ThemeContext';
 import { DrawerMenuProps, MenuItem } from '../types/dashboard';
@@ -20,6 +20,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
   const { t } = useTranslation();
   const theme = useAppTheme();
   const router = useRouter();
+  const pathname = usePathname();
   const slideDirection = I18nManager.isRTL ? 280 : -280;
   const [slideAnim] = useState(new Animated.Value(slideDirection));
   
@@ -71,6 +72,13 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
   ];
   
   const handleNavigation = (route: string) => {
+    // Check if we're already on the target route
+    if (pathname === route) {
+      // Just close the menu without navigating
+      onClose();
+      return;
+    }
+    
     onClose();
     setTimeout(() => {
       router.push(route as any);
@@ -130,29 +138,38 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
             </LinearGradient>
             
             <ScrollView className="flex-1">
-              {menuItems.map((item, index) => (
-                <TouchableOpacity 
-                  key={index}
-                  className="flex-row items-center p-4 border-b"
-                  style={{ borderBottomColor: theme.colors.border }}
-                  onPress={() => handleNavigation(item.route)}
-                  testID={`drawer-menu-item-${item.label.replace(/\s+/g, '-').toLowerCase()}`}
-                  activeOpacity={0.7}
-                >
-                  <View 
-                    className="w-9 h-9 rounded-full items-center justify-center mr-3"
-                    style={{ backgroundColor: item.color + '20' }}
+              {menuItems.map((item, index) => {
+                const isActive = pathname === item.route;
+                return (
+                  <TouchableOpacity 
+                    key={index}
+                    className="flex-row items-center p-4 border-b"
+                    style={{ 
+                      borderBottomColor: theme.colors.border,
+                      backgroundColor: isActive ? item.color + '10' : 'transparent'
+                    }}
+                    onPress={() => handleNavigation(item.route)}
+                    testID={`drawer-menu-item-${item.label.replace(/\s+/g, '-').toLowerCase()}`}
+                    activeOpacity={0.7}
                   >
-                    <Ionicons name={item.icon} size={18} color={item.color} />
-                  </View>
-                  <Text 
-                    className="text-base font-medium"
-                    style={{ color: theme.colors.text }}
-                  >
-                    {item.label}
-                  </Text>
-                </TouchableOpacity>
-              ))}
+                    <View 
+                      className="w-9 h-9 rounded-full items-center justify-center mr-3"
+                      style={{ backgroundColor: item.color + '20' }}
+                    >
+                      <Ionicons name={item.icon} size={18} color={item.color} />
+                    </View>
+                    <Text 
+                      className="text-base font-medium"
+                      style={{ 
+                        color: isActive ? item.color : theme.colors.text,
+                        fontWeight: isActive ? '600' : '400'
+                      }}
+                    >
+                      {item.label}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
             </ScrollView>
           </SafeAreaView>
         </Animated.View>
